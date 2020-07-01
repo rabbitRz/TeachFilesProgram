@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>GetCourseServlet</display-name>
+    <servlet-name>GetCourseServlet</servlet-name>
+    <servlet-class>servlet.GetCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetCourseServlet</servlet-name>
+    <url-pattern>/GetCourseServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

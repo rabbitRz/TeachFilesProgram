@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class DBUtils {
 	 static { 
 		 try { 
-			 Class.forName("com.mysql.cj.jdbc.Driver"); 
+			 Class.forName("com.mysql.jdbc.Driver"); 
 	 }catch(Exception e){ 
 		 throw new RuntimeException(e); 
 		 } 
@@ -18,8 +18,8 @@ public class DBUtils {
 	private static String user="root";
 	private static String pwd="123456";
 	private static String url="jdbc:mysql://182.92.201.241:3306/TeachFilesProgram?"
-			+ "useUnicode=true&characterEncoding=utf8"
-			+ "&useSSL=false&serverTimezone=UTC";
+			+ "useUnicode=true&characterEncoding=utf8";
+			//+ "&useSSL=false&serverTimezone=UTC";
 	public static Connection getConnection() {
 		try {
 			Connection conn=DriverManager.getConnection(url,user,pwd);

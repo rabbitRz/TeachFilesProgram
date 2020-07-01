@@ -39,13 +39,39 @@
   <div class="col-sm-10">
     <div class="card text-center">
 <div class="card-img-overlay">
-  <div class="card-header">
+  <div class="card-header" style="font-size:30px">
     课程表
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <table class="table table-bordered table-hover ">
+  <thead>
+    <tr>
+      <th></th>
+      <th scope="col">星期一</th>
+      <th scope="col">星期二</th>
+      <th scope="col">星期三</th>
+      <th scope="col">星期四</th>
+      <th scope="col">星期五</th>
+      <th scope="col">星期六</th>
+      <th scope="col">星期日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="col" rowspan="2" class="align-middle">第一节</th>
+      <td scope="col" rowspan="2" class="align-middle">Mark</td>
+      <td scope="col" rowspan="2" class="align-middle">Otto</td>
+      <td scope="col" rowspan="2" class="align-middle">@mdo</td>
+      <td scope="col" rowspan="2" class="align-middle">@mdo</td>
+      <td scope="col" rowspan="2" class="align-middle">Mark</td>
+      <td scope="col" rowspan="2" class="align-middle">Otto</td>
+      <td scope="col" rowspan="2" class="align-middle">@mdo</td>
+    </tr>
+    <tr>
+     
+    </tr>
+  </tbody>
+</table>
   </div>
   <div class="card-footer text-muted">
     2 days ago
@@ -63,4 +89,11 @@
 <script src="bootstrap/js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+<script>
+$(function(){
+	$.getJSON("",function(data){
+		
+	})
+})
+</script>
 </html>
