@@ -29,4 +29,14 @@
     <servlet-name>GetCourseClassServlet</servlet-name>
     <url-pattern>/GetCourseClassServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetTermDateServlet</display-name>
+    <servlet-name>GetTermDateServlet</servlet-name>
+    <servlet-class>servlet.GetTermDateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetTermDateServlet</servlet-name>
+    <url-pattern>/GetTermDateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

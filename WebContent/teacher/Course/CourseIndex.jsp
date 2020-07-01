@@ -22,13 +22,13 @@
       </select>  
     </div>
     <label for="colFormLabelLg" class="align-middle col-auto" style="font-size:20px;position:relative;left:50px">第:</label>
-    <div class="col-3"  style="position:relative;left:60px">
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
+    <div class="col-auto"  style="position:relative;left:60px">
+      <select id="XinQi" class="form-control">
+        <option selected>1</option>
       </select>  
     </div>
     <label class="align-middle col-1" style="font-size:20px;position:relative;left:70px">周</label>
+    
  </div>
  
 </form>
@@ -92,14 +92,31 @@
 <script>
 $(function(){
 	$.get("../../GetCourseClassServlet",function(data){
-		console.log(data);
+		//console.log(data);
 		$("#class").html("");
-		for(var i=0;i<data.size();i++){
-			console.log(data.get[i])
+		for(var i=0;i<data.length;i++){
 			$("#class").append("<option selected value="+data[i]+">"+data[i]+"</option>");
 		}
-		
 	});
+	
+	//插入周数
+	for(var i=0;i<20;i++){
+		$("#XinQi").append("<option value="+(i+1)+">"+(i+1)+"</option>");
+	}
+	//计算当前为第几周
+	$.get("../../ter",function(data){
+		console.log(data);
+		var y=data.split("-")[0];
+		var m=data.split("-")[1];
+		var d=data.split("-")[2];
+		//获取打那岸给钱日期
+		var date=new Date(2020,7,1);
+		var startDate = new Date(y,m,d); 
+		var ch=parseInt(Math.abs(date - startDate ) /(1*24*60*60*1000));
+		ch=ch/7+1;
+		console.log(ch);
+	})
+	
 });
 </script>
 </html>
