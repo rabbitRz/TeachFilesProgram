@@ -19,4 +19,14 @@
     <servlet-name>GetCourseServlet</servlet-name>
     <url-pattern>/GetCourseServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetCourseClassServlet</display-name>
+    <servlet-name>GetCourseClassServlet</servlet-name>
+    <servlet-class>servlet.GetCourseClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetCourseClassServlet</servlet-name>
+    <url-pattern>/GetCourseClassServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

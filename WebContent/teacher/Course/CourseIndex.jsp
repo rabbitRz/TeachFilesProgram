@@ -16,7 +16,7 @@
    <div class="col-2" style="position:relative;left:20px"></div>
     <label belLg" class="align-middle col-auto" style="font-size:20px">班级:</label>
     <div class="col-3"  style="position:relative;left:20px">
-      <select id="inputState" class="form-control">
+      <select id="class" class="form-control">
         <option selected>Choose...</option>
         <option>...</option>
       </select>  
@@ -86,14 +86,20 @@
 
 
 </body>
-<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="bootstrap/js/bootstrap.js"></script>
+<script src="../../bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<script src="../../bootstrap/js/bootstrap.js"></script>
 <script>
 $(function(){
-	$.getJSON("",function(data){
+	$.get("../../GetCourseClassServlet",function(data){
+		console.log(data);
+		$("#class").html("");
+		for(var i=0;i<data.size();i++){
+			console.log(data.get[i])
+			$("#class").append("<option selected value="+data[i]+">"+data[i]+"</option>");
+		}
 		
-	})
-})
+	});
+});
 </script>
 </html>
