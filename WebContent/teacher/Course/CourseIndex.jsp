@@ -110,10 +110,12 @@ $(function(){
 		var m=data.split("-")[1];
 		var d=data.split("-")[2];
 		//获取打那岸给钱日期
-		var date=new Date(2020,7,1);
+		var endDate=new Date();
+		var date=new Date(endDate.getFullYear(),endDate.getMonth()+1,endDate.getDate());
 		var startDate = new Date(y,m,d); 
 		var ch=parseInt(Math.abs(date - startDate ) /(1*24*60*60*1000));
-		ch=ch/7+1;
+		ch=parseInt(ch/7+1);
+		$("option[value="+ch+"]").attr("selected");
 		console.log(ch);
 	})
 	
