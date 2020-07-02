@@ -21,22 +21,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>GetCourseClassServlet</display-name>
-    <servlet-name>GetCourseClassServlet</servlet-name>
-    <servlet-class>servlet.GetCourseClassServlet</servlet-class>
+    <display-name>PersonalInfoServlet</display-name>
+    <servlet-name>PersonalInfoServlet</servlet-name>
+    <servlet-class>servlet.PersonalInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetCourseClassServlet</servlet-name>
-    <url-pattern>/GetCourseClassServlet</url-pattern>
+    <servlet-name>PersonalInfoServlet</servlet-name>
+    <url-pattern>/PersonalInfoServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>GetTermDateServlet</display-name>
-    <servlet-name>GetTermDateServlet</servlet-name>
-    <servlet-class>servlet.GetTermDateServlet</servlet-class>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>servlet.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetTermDateServlet</servlet-name>
-    <url-pattern>/GetTermDateServlet</url-pattern>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
 </web-app>
