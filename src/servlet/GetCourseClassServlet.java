@@ -38,8 +38,8 @@ public class GetCourseClassServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		//后期需要修改
-		String teacher_id="1";
+		//教师id
+		String teacher_id=request.getParameter("teacher_id");
 		CourseDaoImpl daoImpl=new CourseDaoImpl();
 		List<String> list=new ArrayList<String>();
 		list=daoImpl.GetClassByTrId(teacher_id);
