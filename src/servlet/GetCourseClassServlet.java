@@ -11,25 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jdt.internal.compiler.lookup.VariableBinding;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bean.course;
 import daoImpl.CourseDaoImpl;
 
 /**
- * Servlet implementation class GetCourseServlet
- * 获取该老师课程表信息
+ * Servlet implementation class GetCourseClassServlet
+ * 获取该教师所带的所有班级信息
  */
-@WebServlet("/course")
-public class GetCourseServlet extends HttpServlet {
+@WebServlet("/CourClass")
+public class GetCourseClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetCourseServlet() {
+    public GetCourseClassServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,16 +36,15 @@ public class GetCourseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		//教师id
 		String teacher_id=request.getParameter("teacher_id");
-		
 		CourseDaoImpl daoImpl=new CourseDaoImpl();
-		List<course> list=new ArrayList<course>();
-		list=daoImpl.FindCouserBuTrId(teacher_id);
+		List<String> list=new ArrayList<String>();
+		list=daoImpl.GetClassByTrId(teacher_id);
 		ObjectMapper mapper=new ObjectMapper();
+		response.setContentType("application/json;charest=UTF-8");
 		String data=mapper.writeValueAsString(list);
 		PrintWriter pWriter=response.getWriter();
 		pWriter.println(data);
