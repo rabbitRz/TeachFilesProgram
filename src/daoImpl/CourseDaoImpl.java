@@ -1,6 +1,5 @@
 package daoImpl;
 
-import java.awt.datatransfer.StringSelection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import dao.CourseDao;
 
 public class CourseDaoImpl implements CourseDao {
 	//根据teacher id查看该老师所带所有班级
-	public List<String> GetClassByTrId(String teacher_id) {
+	public List<String> GetClassByTrId(int teacher_id) {
 		// TODO Auto-generated method stub
 		Connection conn=DBUtils.getConnection();
 		String sql="select course_class from course where teacher_id="+teacher_id;
@@ -41,30 +40,9 @@ public class CourseDaoImpl implements CourseDao {
 		}
 		return list;
 	}
-	//获取当前假期的开学日期
-	public String getTermStart() {
-	// TODO Auto-generated method stub
-		Connection conn=DBUtils.getConnection();
-		String sql="select max(date) max_date from holiday where holiday.desc ='开学'";
-		PreparedStatement st=null;
-		ResultSet rs=null;
-		String str="";
-		try {
-			st=conn.prepareStatement(sql);
-			rs=st.executeQuery();
-			if(rs.next()) {
-				str=rs.getString("max_date");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			DBUtils.close(rs, st, conn);
-		}	
-		return str;
-    }
+	
 	//根据teacher id查看该老师所有课程信息
-		public List<course> FindCouserBuTrId(String teacher_id) {
+		public List<course> FindCouserBuTrId(int teacher_id) {
 			// TODO Auto-generated method stub
 			Connection conn=DBUtils.getConnection();
 			String sql="select c.*,t.name from course c,teacher t where c.teacher_id=t.id and t.id="+teacher_id;
@@ -77,12 +55,9 @@ public class CourseDaoImpl implements CourseDao {
 	}
 public static void main(String[] args) {
 	CourseDaoImpl daoImpl=new CourseDaoImpl();
-	/*List<String> list=daoImpl.GetClassByTrId("1");
+	List<String> list=daoImpl.GetClassByTrId(1);
 	for(int i=0;i<list.size();i++) {
 		System.out.println(list.get(i));
-	}*/
-	System.out.println(daoImpl.getTermStart());
+	}
 }
-
-
 }

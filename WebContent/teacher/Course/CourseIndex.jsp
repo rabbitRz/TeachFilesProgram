@@ -16,19 +16,19 @@
    <div class="col-2" style="position:relative;left:20px"></div>
     <label belLg" class="align-middle col-auto" style="font-size:20px">班级:</label>
     <div class="col-3"  style="position:relative;left:20px">
-      <select id="class" class="form-control">
+      <select id="inputState" class="form-control">
         <option selected>Choose...</option>
         <option>...</option>
       </select>  
     </div>
     <label for="colFormLabelLg" class="align-middle col-auto" style="font-size:20px;position:relative;left:50px">第:</label>
-    <div class="col-auto"  style="position:relative;left:60px">
-      <select id="XinQi" class="form-control">
-        <option selected>1</option>
+    <div class="col-3"  style="position:relative;left:60px">
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
       </select>  
     </div>
     <label class="align-middle col-1" style="font-size:20px;position:relative;left:70px">周</label>
-    
  </div>
  
 </form>
@@ -86,39 +86,14 @@
 
 
 </body>
-<script src="../../bootstrap/js/jquery-3.4.1.min.js"></script>
-<script src="../../bootstrap/js/bootstrap.min.js"></script>
-<script src="../../bootstrap/js/bootstrap.js"></script>
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
 <script>
 $(function(){
-	$.get("../../GetCourseClassServlet",function(data){
-		//console.log(data);
-		$("#class").html("");
-		for(var i=0;i<data.length;i++){
-			$("#class").append("<option selected value="+data[i]+">"+data[i]+"</option>");
-		}
-	});
-	
-	//插入周数
-	for(var i=0;i<20;i++){
-		$("#XinQi").append("<option value="+(i+1)+">"+(i+1)+"</option>");
-	}
-	//计算当前为第几周
-	$.get("../../ter",function(data){
-		console.log(data);
-		var y=data.split("-")[0];
-		var m=data.split("-")[1];
-		var d=data.split("-")[2];
-		//获取打那岸给钱日期
-		var endDate=new Date();
-		var date=new Date(endDate.getFullYear(),endDate.getMonth()+1,endDate.getDate());
-		var startDate = new Date(y,m,d); 
-		var ch=parseInt(Math.abs(date - startDate ) /(1*24*60*60*1000));
-		ch=parseInt(ch/7+1);
-		$("option[value="+ch+"]").attr("selected");
-		console.log(ch);
+	$.getJSON("",function(data){
+		
 	})
-	
-});
+})
 </script>
 </html>
