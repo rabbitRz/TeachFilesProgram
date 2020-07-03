@@ -11,16 +11,6 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>GetCourseServlet</display-name>
-    <servlet-name>GetCourseServlet</servlet-name>
-    <servlet-class>servlet.GetCourseServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GetCourseServlet</servlet-name>
-    <url-pattern>/GetCourseServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>GetCourseClassServlet</display-name>
     <servlet-name>GetCourseClassServlet</servlet-name>
     <servlet-class>servlet.GetCourseClassServlet</servlet-class>
@@ -38,5 +28,25 @@
   <servlet-mapping>
     <servlet-name>GetTermDateServlet</servlet-name>
     <url-pattern>/GetTermDateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindCourseByClassServlet</display-name>
+    <servlet-name>FindCourseByClassServlet</servlet-name>
+    <servlet-class>servlet.FindCourseByClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindCourseByClassServlet</servlet-name>
+    <url-pattern>/FindCourseByClassServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetCourseServlet</display-name>
+    <servlet-name>GetCourseServlet</servlet-name>
+    <servlet-class>servlet.GetCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetCourseServlet</servlet-name>
+    <url-pattern>/GetCourseServlet</url-pattern>
   </servlet-mapping>
 </web-app>

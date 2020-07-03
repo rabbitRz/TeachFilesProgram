@@ -11,7 +11,8 @@ private int couser_peoplenum;//上课人数
 private int teacher_id;//老师id
 private String teachr_name;//老师名字
 private String term_start;//学期开始时间
-private String course_week;//课程所在周数
+private int start_courseweek;//课程开始周数
+private int end_courseweek;//课程开始周数
 private String course_place;//上课地点
 private String week;//上课星期
 public int getCourse_id() {
@@ -37,9 +38,6 @@ public String getTeachr_name() {
 }
 public String getTerm_start() {
 	return term_start;
-}
-public String getCourse_week() {
-	return course_week;
 }
 public String getCourse_place() {
 	return course_place;
@@ -71,21 +69,30 @@ public void setTeachr_name(String teachr_name) {
 public void setTerm_start(String term_start) {
 	this.term_start = term_start;
 }
-public void setCourse_week(String course_week) {
-	this.course_week = course_week;
-}
 public void setCourse_place(String course_place) {
 	this.course_place = course_place;
 }
 public void setWeek(String week) {
 	this.week = week;
 }
+public int getStart_courseweek() {
+	return start_courseweek;
+}
+public int getEnd_courseweek() {
+	return end_courseweek;
+}
+public void setStart_courseweek(int start_course_week) {
+	this.start_courseweek = start_course_week;
+}
+public void setEnd_courseweek(int end_course_week) {
+	this.end_courseweek = end_course_week;
+}
 @Override
 public String toString() {
 	return "course [course_id=" + course_id + ", course_name=" + course_name + ", course_hours=" + course_hours
 			+ ", course_class=" + course_class + ", couser_peoplenum=" + couser_peoplenum + ", teacher_id=" + teacher_id
-			+ ", teachr_name=" + teachr_name + ", term_start=" + term_start + ", course_week=" + course_week
-			+ ", course_place=" + course_place + ", week=" + week + "]";
+			+ ", teachr_name=" + teachr_name + ", term_start=" + term_start + ", start_course_week=" + start_courseweek
+			+ ", end_course_week=" + end_courseweek + ", course_place=" + course_place + ", week=" + week + "]";
 }
 
 
