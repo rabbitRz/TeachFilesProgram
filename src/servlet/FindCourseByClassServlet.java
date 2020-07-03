@@ -47,6 +47,7 @@ public class FindCourseByClassServlet extends HttpServlet {
 		CourseDaoImpl daoImpl=new CourseDaoImpl();
 		List<course> list=new ArrayList<course>();
 		list=daoImpl.FindByClass_Week(teacher_id, classString, weekString);
+		response.setContentType("application/json;charest=UTF-8");
 		ObjectMapper mapper=new ObjectMapper();
 		String data=mapper.writeValueAsString(list);
 		PrintWriter pWriter=response.getWriter();

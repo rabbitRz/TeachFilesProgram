@@ -44,7 +44,7 @@ public class GetCourseServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		//教师id
 		String teacher_id=request.getParameter("teacher_id");
-		
+		response.setContentType("application/json;charest=UTF-8");
 		CourseDaoImpl daoImpl=new CourseDaoImpl();
 		List<course> list=new ArrayList<course>();
 		list=daoImpl.FindCouserBuTrId(teacher_id);

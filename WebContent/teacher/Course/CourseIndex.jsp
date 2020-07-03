@@ -81,7 +81,7 @@
 </table>
   </div>
   <div class="card-footer text-muted">
-    2 days ago
+    课程表页面
   </div>
 </div>
 </div>
