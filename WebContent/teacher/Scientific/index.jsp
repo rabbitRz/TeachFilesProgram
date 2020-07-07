@@ -142,7 +142,11 @@ $(function(){
 		var str="性别:"+data["sex"]+"<br/>"+"籍贯："+data["nativeplace"]+"<br/>学历情况："+data["education"]+"<br/>"
 		+"职称："+data["title"]+"<br/>专业："+data["major"]+"<br/>参加工作时间："+data["workingtime"];
 		$("#teacher_m").append(str);
-		
+	});
+	
+	//获取项目获奖情况
+	$.GetJson("../../SciGetProA?teacher_id="+teacheer_id,function(data){
+		console.log(data);
 	})
 })
 </script>

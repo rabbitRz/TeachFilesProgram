@@ -78,4 +78,14 @@
     <servlet-name>SciGetTrInfoServlet</servlet-name>
     <url-pattern>/SciGetTrInfoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SciGetProAllInfoServlet</display-name>
+    <servlet-name>SciGetProAllInfoServlet</servlet-name>
+    <servlet-class>servlet.SciGetProAllInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SciGetProAllInfoServlet</servlet-name>
+    <url-pattern>/SciGetProAllInfoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
