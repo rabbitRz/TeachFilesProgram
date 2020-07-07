@@ -13,14 +13,14 @@
 
 <div class="card mb-3" style="max-width:100%;height:auto">
   <div class="row no-gutters">
-    <div class="col-md-auto">
+    <div class="col-md-auto" id="teacher_img"> 
       <img src="../../image/M_tr.jpg" class="card-img" alt="...">
     </div>
     <div class="col-md-9">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      <div class="card-body" id="teacher_info">
+        <h5 class="card-title" id="tacher_name">教师姓名</h5>
+        <p class="card-text" id="teacher_m">教师简介</p>
+        <p class="card-text"><small class="text-muted" id="teacher_n">Last updated 3 mins ago</small></p>
       </div>
     </div>
   </div>
@@ -76,4 +76,13 @@
 <script src="../../bootstrap/js/jquery-3.4.1.min.js"></script>
 <script src="../../bootstrap/js/bootstrap.min.js"></script>
 <script src="../../bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+$(function(){
+	//teahcer_id
+	var teacher_id=1;
+	$.getJSON("../../SciGetTrInfo?teacher_id="+teacher_id,function(data){
+		console.log(data);
+	})
+})
+</script>
 </html>
