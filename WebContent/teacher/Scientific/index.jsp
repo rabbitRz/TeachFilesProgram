@@ -160,9 +160,7 @@ $(function(){
 			str+='<tr>'+
 			     '<th scope="row" >'+data[i].id+'</th>'+
 			     '<td>Mark</td>'
-			      <td>Otto</td>
-			      <td>@mdo</td>
-			    </tr>'
+			     ;
 		}
 	})
 })
