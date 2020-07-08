@@ -1,11 +1,20 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import bean.Project;
+import daoImpl.ProjectDaoImpl;
 
 /**
  * Servlet implementation class SciGetProAllInfoServlet
@@ -32,6 +41,15 @@ public class SciGetProAllInfoServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		//教师id
 		String teString=request.getParameter("teacher_id");
+		ProjectDaoImpl daoImpl=new ProjectDaoImpl();
+		List<Project> list=new ArrayList<Project>();
+		list=daoImpl.GetAllInfoById(teString);
+		ObjectMapper mapper=new ObjectMapper();
+		String data=mapper.writeValueAsString(list);
+		PrintWriter pWriter=response.getWriter();
+		pWriter.println(data);
+		pWriter.flush();
+		pWriter.close();
 		
 	}
 

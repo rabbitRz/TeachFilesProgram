@@ -44,13 +44,21 @@
     <tr>
       <th scope="col">项目编号</th>
       <th scope="col">项目名称</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Username</th>
+      <th scope="col">项目类别</th>
+      <th scope="col">项目开始时间</th>
+      <th scope="col">项目结束时间</th>
+      <th scope="col">项目奖项</th>
+      <th scope="col">项目排名</th>
+      <th scope="col">项目队长</th>
+      <th scope="col">队员1</th>
+      <th scope="col">队员2</th>
+      <th scope="col">队员3</th>
+      <th scope="col">权限设置</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
+  <tbody id="proInfo">
+    <!--<tr>
+      <th scope="row" >1</th>
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
@@ -66,7 +74,7 @@
       <td>Larry</td>
       <td>the Bird</td>
       <td>@twitter</td>
-    </tr>
+    </tr>-->
   </tbody>
 </table>
         
@@ -145,8 +153,17 @@ $(function(){
 	});
 	
 	//获取项目获奖情况
-	$.GetJson("../../SciGetProA?teacher_id="+teacheer_id,function(data){
+	$.getJSON("../../SciGetProA?teacher_id="+teacher_id,function(data){
 		console.log(data);
+		var str="";
+		for(var i=0;i<list.length();i++){
+			str+='<tr>'+
+			     '<th scope="row" >'+data[i].id+'</th>'+
+			     '<td>Mark</td>'
+			      <td>Otto</td>
+			      <td>@mdo</td>
+			    </tr>'
+		}
 	})
 })
 </script>

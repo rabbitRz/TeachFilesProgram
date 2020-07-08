@@ -10,14 +10,14 @@ private String pro_identime;//项目鉴定日期
 private String pro_identification;//项目鉴定结论
 private String pro_prize;//项目获奖情况
 private String pro_ranking;//项目排名
-private Teacher leader_id;//领导老师id
-private Teacher leader_name;//领导老师name
-private Teacher t1_id;//队员1id
-private Teacher t1_name;//队员1name
-private Teacher t2_id;//队员2id
-private Teacher t2_name;//队员2name
-private Teacher t3_id;//队员3id
-private Teacher t3_name;//队员3name
+private int leader_id;//领导老师id
+private String leader_name;//领导老师name
+private int t1_id;//队员1id
+private String t1_name;//队员1name
+private int t2_id;//队员2id
+private String t2_name;//队员2name
+private int t3_id;//队员3id
+private String t3_name;//队员3name
 
 public int getPro_id() {
 	return pro_id;
@@ -73,52 +73,53 @@ public void setPro_prize(String pro_prize) {
 public void setPro_ranking(String pro_ranking) {
 	this.pro_ranking = pro_ranking;
 }
-public Teacher getLeader_id() {
+
+public int getLeader_id() {
 	return leader_id;
 }
-public Teacher getLeader_name() {
+public String getLeader_name() {
 	return leader_name;
 }
-public Teacher getT1_id() {
+public int getT1_id() {
 	return t1_id;
 }
-public Teacher getT1_name() {
+public String getT1_name() {
 	return t1_name;
 }
-public Teacher getT2_id() {
+public int getT2_id() {
 	return t2_id;
 }
-public Teacher getT2_name() {
+public String getT2_name() {
 	return t2_name;
 }
-public Teacher getT3_id() {
+public int getT3_id() {
 	return t3_id;
 }
-public Teacher getT3_name() {
+public String getT3_name() {
 	return t3_name;
 }
-public void setLeader_id(Teacher leader_id) {
+public void setLeader_id(int leader_id) {
 	this.leader_id = leader_id;
 }
-public void setLeader_name(Teacher leader_name) {
+public void setLeader_name(String leader_name) {
 	this.leader_name = leader_name;
 }
-public void setT1_id(Teacher t1_id) {
+public void setT1_id(int t1_id) {
 	this.t1_id = t1_id;
 }
-public void setT1_name(Teacher t1_name) {
+public void setT1_name(String t1_name) {
 	this.t1_name = t1_name;
 }
-public void setT2_id(Teacher t2_id) {
+public void setT2_id(int t2_id) {
 	this.t2_id = t2_id;
 }
-public void setT2_name(Teacher t2_name) {
+public void setT2_name(String t2_name) {
 	this.t2_name = t2_name;
 }
-public void setT3_id(Teacher t3_id) {
+public void setT3_id(int t3_id) {
 	this.t3_id = t3_id;
 }
-public void setT3_name(Teacher t3_name) {
+public void setT3_name(String t3_name) {
 	this.t3_name = t3_name;
 }
 @Override
