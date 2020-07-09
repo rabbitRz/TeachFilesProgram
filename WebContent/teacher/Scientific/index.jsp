@@ -91,8 +91,9 @@
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-        
-       <table class="table table-striped">
+      
+      <form id="paperTable" action="post">
+       <table class="table table-striped"  >
   <thead>
     <tr>
       <th scope="col">论文编号</th>
@@ -111,7 +112,7 @@
   <tbody id="paperInfo">
   </tbody>
 </table> 
-        
+</form>
       </div>
     </div>
   </div>
@@ -141,13 +142,39 @@
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        <table class="table table-striped" >
+  <thead>
+    <tr>
+      <th scope="col">所带班级</th>
+      <th scope="col">班级课程</th>
+      <th scope="col">是否查看课程表</th>
+    </tr>
+  </thead>
+  <tbody id="classInfo">
+  </tbody>
+</table> 
       </div>
     </div>
   </div>
   
 </div>
 </div>
+<!-- 是否同意公开论文 -->
+<div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          论文信息
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  
 </body>
 <script src="../../bootstrap/js/jquery-3.4.1.min.js"></script>
 <script src="../../bootstrap/js/bootstrap.min.js"></script>
@@ -194,9 +221,7 @@ $(function(){
 		}
 		$("#proInfo").append(str);
 	});
-	//权限切换
-	
-	//获取科研信息
+	//获取论文信息
 	$.getJSON("../../SciGetSciInfo?teacher_id="+teacher_id,function(data){
 		console.log(data);
 		var str="";
@@ -215,13 +240,45 @@ $(function(){
 		     '<td>'+data[i].people1_name+'</td>'+
 		     '<td>'+data[i].people2_name+'</td>'+
 		     '<td>'+data[i].people3_name+'</td>'+
-		     '<td><button type="button" class="btn btn-success" function="ChangePermission()">'+rt+'</button></td>'+
+		     '<td><button type="button" class="btn btn-success"  name="ChangePermission">'+rt+'</button></td>'+
 		     '</tr>';
+		     $("button[name=ChangePermission]").click(data[i]);
 		}
 		$("#paperInfo").append(str);
+		//权限切换
+		$("button[name=ChangePermission]").click(function(){
+			var rr=$(this).text();
+			var result=confirm("确定要将该篇论文状态设置为"+rr+"吗？\n(注意：必须获取论文所有参与人员同意)");
+			if(result){
+			var application="";
+			if(rr="公开"){
+				application="私有";
+			}else if(rr="私有"){
+				application="公开";
+			}
+			//获取点击的该列对应的第一列的值
+			var paper_id=$(this).closest("tr").find("th").eq(0).text();
+			$.post("../../SciChangPermission",{paper_id:paper_id,member:teacher_id,member_per:"Y",application:application},function(data){
+				
+			});
+		}	
+		});
+		
+	})
+	//获取所带班级信息
+	$.getJSON("../../SciGetClass?teacher_id="+teacher_id,function(data){
+		console.log(data);
+		var str="";
+		for(var i=0;i<data.length;i++){
+			str+='<tr>'+
+			     '<th scope="row" >'+data[i].course_class+'</th>'+
+			     '<td>'+data[i].course_name+'</td>'+
+			     '<td><button type="button" class="btn btn-link">'+
+			     '<a href="<%=request.getContextPath()%>/teacher/Course/CourseIndex.jsp">课程表</a></button></td>'+
+			     '</tr>';
+		}
+		$("#classInfo").append(str);
 	});
-	
-	
 })
 </script>
 </html>

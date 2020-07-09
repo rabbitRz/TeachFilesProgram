@@ -98,4 +98,34 @@
     <servlet-name>SciGetSciInfoServlet</servlet-name>
     <url-pattern>/SciGetSciInfoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SciGetClassServlet</display-name>
+    <servlet-name>SciGetClassServlet</servlet-name>
+    <servlet-class>servlet.SciGetClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SciGetClassServlet</servlet-name>
+    <url-pattern>/SciGetClassServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SciChangPermissionServlet</display-name>
+    <servlet-name>SciChangPermissionServlet</servlet-name>
+    <servlet-class>servlet.SciChangPermissionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SciChangPermissionServlet</servlet-name>
+    <url-pattern>/SciChangPermissionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangePermission</display-name>
+    <servlet-name>ChangePermission</servlet-name>
+    <servlet-class>bean.ChangePermission</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangePermission</servlet-name>
+    <url-pattern>/ChangePermission</url-pattern>
+  </servlet-mapping>
 </web-app>
