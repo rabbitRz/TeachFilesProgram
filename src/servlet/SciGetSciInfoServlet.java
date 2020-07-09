@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.mail.internet.NewsAddress;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,21 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import bean.Parper_PaperPeople;
 import bean.Teacher;
-import daoImpl.TeacherDaoImpl;
+import daoImpl.PaperDaoImpl;
 
 /**
- * Servlet implementation class SciGetTrInfoServlet
- * 根据教师id查找出教师信息
+ * Servlet implementation class SciGetSciInfoServlet
+ * 获取科研信息
  */
-@WebServlet("/SciGetTrInfo")
-public class SciGetTrInfoServlet extends HttpServlet {
+@WebServlet("/SciGetSciInfo")
+public class SciGetSciInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SciGetTrInfoServlet() {
+    public SciGetSciInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,18 +40,16 @@ public class SciGetTrInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String teacString=request.getParameter("teacher_id");
-		TeacherDaoImpl daoImpl=new TeacherDaoImpl();
-		Teacher t=new Teacher();
-		t=daoImpl.showPersonById(Integer.parseInt(teacString));
-		response.setContentType("application/json;charest=utf-8");
+		String teString=request.getParameter("teacher_id");
+		List<Parper_PaperPeople> list=new ArrayList<Parper_PaperPeople>();
+		PaperDaoImpl daoImpl=new PaperDaoImpl();
+		list=daoImpl.getPaperAllInfo(teString);
 		ObjectMapper mapper=new ObjectMapper();
-		String data=mapper.writeValueAsString(t);
-		PrintWriter pw=response.getWriter();
-		pw.println(data);
-		pw.flush();
-		pw.close();
-		
+		String data=mapper.writeValueAsString(list);
+		PrintWriter pWriter=response.getWriter();
+		pWriter.println(data);
+		pWriter.flush();
+		pWriter.close();
 	}
 
 	/**

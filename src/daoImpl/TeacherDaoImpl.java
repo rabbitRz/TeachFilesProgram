@@ -53,7 +53,43 @@ public class TeacherDaoImpl implements TeacherDao{
 		}
 		return teacher;
 	}
-
+	//通过教师id显示个人信息
+    public Teacher showPersonById(int id) {
+    	Connection conn=DBUtils.getConnection();
+		String sql="select * from teacher where id="+id;
+		//System.out.println(sql);
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		Teacher teacher=new Teacher();
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while(rs.next()) {
+			//Teacher teacher=new Teacher();
+			teacher.setUser_id(rs.getInt("user_id"));
+			teacher.setId(rs.getInt("id"));
+			teacher.setName(rs.getString("name"));
+			teacher.setSex(rs.getString("sex"));
+			teacher.setNativeplace(rs.getString("nativeplace"));
+			teacher.setBirthday(rs.getDate("birthday"));
+			teacher.setEducation(rs.getString("education"));
+			teacher.setTitle(rs.getString("title"));
+			teacher.setQuatime(rs.getDate("quatime"));
+			teacher.setGraschool(rs.getString("graschool"));
+			teacher.setMajor(rs.getString("major"));
+			teacher.setWorkingtime(rs.getString("workingtime"));
+			teacher.setCurrentmajor(rs.getString("currentmajor"));
+								
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("showPersonalInfo(int user_id)运行出错!");
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return teacher;
+	}
 	//通过id显示个人的论文信息
 	public List<Paper> showPapers(int id) {
 		Connection conn=DBUtils.getConnection();

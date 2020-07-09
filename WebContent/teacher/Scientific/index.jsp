@@ -53,7 +53,6 @@
       <th scope="col">队员1</th>
       <th scope="col">队员2</th>
       <th scope="col">队员3</th>
-      <th scope="col">权限设置</th>
     </tr>
   </thead>
   <tbody id="proInfo">
@@ -81,21 +80,43 @@
       </div>
     </div>
   </div>
+  
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          科研信息
+          论文信息
         </button>
       </h2>
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        
+       <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">论文编号</th>
+      <th scope="col">论文名称</th>
+      <th scope="col">期刊名称</th>
+      <th scope="col">发布时间</th>
+      <th scope="col">期刊级别</th>
+      <th scope="col">索引情况</th>
+      <th scope="col">论文排名</th>
+      <th scope="col">成员1</th>
+      <th scope="col">成员2</th>
+      <th scope="col">成员3</th>
+      <th scope="col">开放权限</th>
+    </tr>
+  </thead>
+  <tbody id="paperInfo">
+  </tbody>
+</table> 
+        
       </div>
     </div>
   </div>
-  <div class="card">
+  
+  <!--<div class="card">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -109,7 +130,7 @@
       </div>
     </div>
   </div>
-  
+  -->
   <div class="card">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0">
@@ -156,13 +177,51 @@ $(function(){
 	$.getJSON("../../SciGetProA?teacher_id="+teacher_id,function(data){
 		console.log(data);
 		var str="";
-		for(var i=0;i<list.length();i++){
+		for(var i=0;i<data.length;i++){
 			str+='<tr>'+
-			     '<th scope="row" >'+data[i].id+'</th>'+
-			     '<td>Mark</td>'
-			     ;
+			     '<th scope="row" >'+data[i].pro_id+'</th>'+
+			     '<td>'+data[i].pro_name+'</td>'+
+			     '<td>'+data[i].pro_category+'</td>'+
+			     '<td>'+data[i].pro_starttime+'</td>'+
+			     '<td>'+data[i].pro_finishtime+'</td>'+
+			     '<td>'+data[i].pro_prize+'</td>'+
+			     '<td>'+data[i].pro_ranking+'</td>'+
+			     '<td>'+data[i].leader_name+'</td>'+
+			     '<td>'+data[i].t1_name+'</td>'+
+			     '<td>'+data[i].t2_name+'</td>'+
+			     '<td>'+data[i].t3_name+'</td>'+
+			     '</tr>';
 		}
-	})
+		$("#proInfo").append(str);
+	});
+	//权限切换
+	
+	//获取科研信息
+	$.getJSON("../../SciGetSciInfo?teacher_id="+teacher_id,function(data){
+		console.log(data);
+		var str="";
+		for(var i=0;i<data.length;i++){
+			var rt="私有";
+			if(data[i].permission=='1')
+				rt="公开";
+			str+='<tr>'+
+		     '<th scope="row" >'+data[i].paper_id+'</th>'+
+		     '<td>'+data[i].paper_name+'</td>'+
+		     '<td>'+data[i].journal_name+'</td>'+
+		     '<td>'+data[i].release_time+'</td>'+
+		     '<td>'+data[i].journal_level+'</td>'+
+		     '<td>'+data[i].paper_index+'</td>'+
+		     '<td>'+data[i].paper_ranking+'</td>'+
+		     '<td>'+data[i].people1_name+'</td>'+
+		     '<td>'+data[i].people2_name+'</td>'+
+		     '<td>'+data[i].people3_name+'</td>'+
+		     '<td><button type="button" class="btn btn-success" function="ChangePermission()">'+rt+'</button></td>'+
+		     '</tr>';
+		}
+		$("#paperInfo").append(str);
+	});
+	
+	
 })
 </script>
 </html>
