@@ -1,11 +1,15 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import daoImpl.ChangePermissionDaoImpl;
 
 /**
  * Servlet implementation class SciChangPermissionServlet
@@ -34,6 +38,19 @@ public class SciChangPermissionServlet extends HttpServlet {
 		String application=request.getParameter("application");
 		String member=request.getParameter("member");
 		String member_per=request.getParameter("member_per");
+		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
+		boolean flag=daoImpl.insertChangePermission(paper_id, member, member_per, application);
+		String str="";
+		if(flag) {
+			str="提交申请成功，请等待论文所有参与人员确认！";
+		}else {
+			str="提交申请失败，您可能已经提交过申请！";
+		}
+		PrintWriter pWriter=response.getWriter();
+		pWriter.println(str);
+		pWriter.flush();
+		pWriter.close();
+		
 	}
 
 	/**

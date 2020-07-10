@@ -160,20 +160,25 @@
 </div>
 </div>
 <!-- 是否同意公开论文 -->
-<div class="card">
-    <div class="card-header" id="headingThree">
-      <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          论文信息
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">论文申请</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
-      </h2>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+      <div class="modal-body">
+        <p>是否同意论文xx公开/私有？</p>
+      </div>
+      <div class="modal-footer">
+        <button id="Y" type="button" class="btn btn-primary" data-dismiss="modal">是</button>
+        <button id="N" type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
       </div>
     </div>
   </div>
+</div>
   
 </body>
 <script src="../../bootstrap/js/jquery-3.4.1.min.js"></script>
@@ -183,6 +188,20 @@
 $(function(){
 	//teahcer_id
 	var teacher_id=1;
+	//若论文某一成员提交了论文申请，其余成员将会收到申请，之后对其进行申请判断
+	$('#myModal').modal('show');
+	
+	$('#myModal').on('show.bs.modal', function (e) {
+		var str="1";
+		$("#Y").click(function(){
+			str="Y";
+		})
+		$("#N").click(function(){
+			str="N";
+		})
+		alert(str);
+	})
+	//$.getJSON("../../")
 	$.getJSON("../../SciGetTrInfo?teacher_id="+teacher_id,function(data){
 		console.log(data);
 		var str_img="";
@@ -251,15 +270,16 @@ $(function(){
 			var result=confirm("确定要将该篇论文状态设置为"+rr+"吗？\n(注意：必须获取论文所有参与人员同意)");
 			if(result){
 			var application="";
-			if(rr="公开"){
+			if(rr=="公开"){
 				application="私有";
-			}else if(rr="私有"){
+			}else if(rr=="私有"){
 				application="公开";
 			}
+			//console.log(application);
 			//获取点击的该列对应的第一列的值
 			var paper_id=$(this).closest("tr").find("th").eq(0).text();
 			$.post("../../SciChangPermission",{paper_id:paper_id,member:teacher_id,member_per:"Y",application:application},function(data){
-				
+				alert(data);
 			});
 		}	
 		});
