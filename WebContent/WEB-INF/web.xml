@@ -128,4 +128,14 @@
     <servlet-name>ChangePermission</servlet-name>
     <url-pattern>/ChangePermission</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PermissionAgreeServlet</display-name>
+    <servlet-name>PermissionAgreeServlet</servlet-name>
+    <servlet-class>servlet.PermissionAgreeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PermissionAgreeServlet</servlet-name>
+    <url-pattern>/PermissionAgreeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
