@@ -44,7 +44,7 @@ public class SciChangPermissionServlet extends HttpServlet {
 		if(flag) {
 			str="提交申请成功，请等待论文所有参与人员确认！";
 		}else {
-			str="提交申请失败，您可能已经提交过申请！";
+			str="提交申请失败，您可能已经提交过申请或者该篇论文已被提交过申请！";
 		}
 		PrintWriter pWriter=response.getWriter();
 		pWriter.println(str);

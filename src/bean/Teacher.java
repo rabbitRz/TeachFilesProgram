@@ -2,6 +2,8 @@ package bean;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Teacher {
 	int id;//编号
 	String name;//姓名
@@ -12,10 +14,21 @@ public class Teacher {
 	String title;//职称
 	Date quatime;//取得资格时间
 	String graschool;//毕业学校
+	Date gratime;//毕业时间
 	String major;//专业
 	String workingtime;//参加工作时间
 	String currentmajor;//现从事专业
 	int user_id;//用户id
+	
+	User user;
+	
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getId() {
 		return id;
 	}
@@ -93,6 +106,19 @@ public class Teacher {
 	}
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+	public Date getGratime() {
+		return gratime;
+	}
+	public void setGratime(Date gratime) {
+		this.gratime = gratime;
+	}
+	@Override
+	public String toString() {
+		return "Teacher [id=" + id + ", name=" + name + ", sex=" + sex + ", nativeplace=" + nativeplace + ", birthday="
+				+ birthday + ", education=" + education + ", title=" + title + ", quatime=" + quatime + ", graschool="
+				+ graschool + ", gratime=" + gratime + ", major=" + major + ", workingtime=" + workingtime
+				+ ", currentmajor=" + currentmajor + ", user_id=" + user_id + ", user=" + user + "]";
 	}
 	
 	

@@ -9,7 +9,7 @@
 <title>科研模块</title>
 </head>
 <body background="../../image/scientificBg.gif">
-<div class="container"style="position:relative;top:30px">
+<div class="container"style="position:relative;top:30px;margin-top:100px">
 
 <div class="card mb-3" style="max-width:100%;height:auto">
   <div class="row no-gutters">
@@ -157,15 +157,17 @@
     </div>
   </div>
   
-  <div class="card">
-    <div class="card-header" id="headingThree">
+  
+  <div class="card bg-light " id="Mmm" style="">
+ 
+    <div class="card-header" id="headingFour">
       <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
           论文权限申请
         </button>
       </h2>
     </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
       <div class="card-body">
       
         <table class="table table-striped" >
@@ -192,9 +194,9 @@
       </div>
     </div>
   </div>
-  
+  </div>
 </div>
-</div>
+
 
 </body>
 <script src="../../bootstrap/js/jquery-3.4.1.min.js"></script>
@@ -202,11 +204,17 @@
 <script src="../../bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
 $(function(){
-	//teahcer_id
-	var teacher_id=1;
+	$.get("../../uT?user_id="+<%=request.getParameter("user_id")%>,function(data11){
+		console.log("教师id:"+data11);
+	//教师id
+	var teacher_id=data11;
+	document.getElementById("Mmm").style.display="none";
 	//若论文某一成员提交了论文申请，其余成员将会收到申请，之后对其进行申请判断
-	$.getJSON("../../permissionAgree?teacher_id=",function(data){
-		
+	$.getJSON("../../permissionAgree?teacher_id="+teacher_id,function(data){
+		console.log(data);
+		if(data.length>0){
+			document.getElementById("Mmm").style.display="block";
+		}
 	})
 	
 	//$.getJSON("../../")
@@ -306,6 +314,7 @@ $(function(){
 			     '</tr>';
 		}
 		$("#classInfo").append(str);
+	});
 	});
 })
 </script>

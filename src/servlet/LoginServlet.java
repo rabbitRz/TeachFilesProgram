@@ -58,7 +58,11 @@ public class LoginServlet extends HttpServlet {
 		}
 				
 		if(flag){
-			request.getRequestDispatcher("/teacher/personal/NewFile.jsp").forward(request, response);
+			if(user.getRole_id()==1)
+			request.getRequestDispatcher("/teacher/index.jsp").forward(request, response);
+			else {
+				request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
+			}
 		}else{
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}

@@ -1,3 +1,4 @@
+<%@page import="bean.Project"%>
 <%@page import="bean.Paper"%>
 <%@ page language="java"  import="java.util.*,bean.Teacher"
 contentType="text/html; charset=UTF-8"
@@ -12,13 +13,19 @@ pageEncoding="UTF-8"%>
 </head>
 
  <body class="bg-light">
+ <%
+     	Teacher teacher=(Teacher)request.getAttribute("teacher");   		
+     %>
+     <A href="GetApplicationServlet?teacher_id=<%=teacher.getId()%>"><button class="btn btn-primary btn-lg btn-block" type="button">查看未通过的申请</button></a>
+<form action="<%=request.getContextPath() %>/ApplicationServlet" method="post">
     <div class="container">
-  <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="<%=request.getContextPath()%>/image/headpo.jpg" alt="" width="88" height="88">
-    <h2>个人信息</h2>
-    <p class="lead">请确认信息是否正确，与个人信息不符时请进行修改，管理员会进行审核</p>
+  <div class="py-2 text-center" id="teacher_img">
+    <img class="d-block mx-auto mb-4" src="<%=request.getContextPath()%>/image/headpo.jpg" alt="" width="88" height="88">   
   </div>
-
+  <div class="py-2 text-center" >
+  <h2>个人信息</h2>
+  <p class="lead">请确认信息是否正确，与个人信息不符时请进行修改，管理员会进行审核</p>
+  </div>
 <div class="row">
   <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -51,29 +58,44 @@ pageEncoding="UTF-8"%>
         <span class="text-muted">获奖情况</span>
         <!-- <span class="badge badge-secondary badge-pill">3</span> -->
       </h4>
+<%
+   	List<Project> projects=(List<Project>)request.getAttribute("projects");   
+	if(projects!=null&&projects.size()>0){
+		for(int i=0;i<projects.size();i++){
+%>
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0"><a  href=""><%=projects.get(i).getPro_name() %></a></h6>
+            <small class="text-muted"><%=projects.get(i).getPro_prize() %></small>
           </div>
-          <span class="text-muted">$12</span>
+          <svg class="bi bi-award-fill" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  			<path d="M8 0l1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+  			<path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+		  </svg>
         </li>
         
       </ul>
+<%}} %>
     </div>   
 <div class="col-md-8 order-md-1"> 
 <form class="needs-validation" novalidate>
 <table class="table table-bordered table-hover definewidth m10" >
-	<%
-     	Teacher teacher=(Teacher)request.getAttribute("teacher");   		
-     %>
+	
      </table>
+     <div class="form-group row">
+  
+    <label class="col-sm-2 col-form-label">ID</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="id" placeholder="ID" name="id1" readonly="true" value="<%=teacher.getId() %>">
+    </div>
+  </div>
+     
   <div class="form-group row">
   
     <label class="col-sm-2 col-form-label">姓名</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" placeholder="姓名" value="<%=teacher.getName() %>">
+      <input type="text" class="form-control" id="name" name="name" placeholder="姓名" value="<%=teacher.getName() %>">
     </div>
   </div>
 
@@ -82,13 +104,13 @@ pageEncoding="UTF-8"%>
       <legend class="col-form-label col-sm-2 pt-0">性别</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="男" <%=teacher.getSex().equals("男")?"checked":"" %>>
+          <input class="form-check-input" type="radio" name="sex" id="gridRadios1" value="男" <%=teacher.getSex().equals("男")?"checked":"" %>>
           <label class="form-check-label" for="gridRadios1">
             男
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="女" <%=teacher.getSex().equals("女")?"checked":"" %>>
+          <input class="form-check-input" type="radio" name="sex" id="gridRadios2" value="女" <%=teacher.getSex().equals("女")?"checked":"" %>>
           <label class="form-check-label" for="gridRadios2">
             女
           </label>
@@ -99,43 +121,43 @@ pageEncoding="UTF-8"%>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">籍贯</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="nativeplace" placeholder="籍贯" value="<%=teacher.getNativeplace() %>">
+      <input type="text" class="form-control" name="nativeplace" id="nativeplace" placeholder="籍贯" value="<%=teacher.getNativeplace() %>">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">出生日期</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="birthday" placeholder="出生日期" value="<%=teacher.getBirthday() %>">
+      <input type="date" class="form-control" name="birthday" id="birthday" placeholder="出生日期" value="<%=teacher.getBirthday() %>">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">学历</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="education" placeholder="学历" value="<%=teacher.getEducation() %>">
+      <input type="text" class="form-control" name="education" id="education" placeholder="学历" value="<%=teacher.getEducation() %>">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">毕业学校</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="graschool" placeholder="毕业学校" value="<%=teacher.getGraschool() %>">
+      <input type="text" class="form-control" name="graschool" id="graschool" placeholder="毕业学校" value="<%=teacher.getGraschool() %>">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">所学专业</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="major" placeholder="所学专业" value="<%=teacher.getMajor() %>">
+      <input type="text" class="form-control" name="major" id="major" placeholder="所学专业" value="<%=teacher.getMajor() %>">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">工作时间</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="workingtime" placeholder="工作时间" value="<%=teacher.getWorkingtime() %>">
+      <input type="text" class="form-control" name="workingtime" id="workingtime" placeholder="工作时间" value="<%=teacher.getWorkingtime() %>">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">现从事专业</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="currentmajor" placeholder="现从事专业" value="<%=teacher.getCurrentmajor() %>">
+      <input type="text" class="form-control" name="currentmajor" id="currentmajor" placeholder="现从事专业" value="<%=teacher.getCurrentmajor() %>">
     </div>
   </div>
   <!-- <div class="form-group row">
@@ -153,8 +175,26 @@ pageEncoding="UTF-8"%>
     <p class="mb-1">&copy; 2020 ly</p>
   </footer>
 </div>
+</form>
 <script src="<%=request.getContextPath()%>/bootstrap/js/jquery-3.4.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.getJSON("<%=request.getContextPath()%>/PersonalImage?teacher_id="+<%=teacher.getId() %>,function(data){
+		console.log(data);
+		var str_img="";
+		if(data["sex"]=="男"){
+			$("#teacher_img").html("");
+			str_img='<img class="d-block mx-auto mb-4" src="<%=request.getContextPath()%>/image/man.jpg" alt="" width="88" height="88">';
+		}else if(data["sex"]=="女"){
+			$("#teacher_img").html("");
+			str_img='<img class="d-block mx-auto mb-4" src="<%=request.getContextPath()%>/image/woman.jpg" alt="" width="88" height="88">';
+		}
+		$("#teacher_img").append(str_img);
+	});
+	
+})
+</script>
 </body>
 </html>

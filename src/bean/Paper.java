@@ -10,6 +10,7 @@ public class Paper {
 	private String journal_level;//期刊级别
 	private String paper_index;//索引情况
 	private String paper_ranking;//排名
+	private String teachername;
 	public int getPaper_id() {
 		return paper_id;
 	}
@@ -52,6 +53,13 @@ public class Paper {
 	public void setPaper_ranking(String paper_ranking) {
 		this.paper_ranking = paper_ranking;
 	}
+	public String getTeachername() {
+		return teachername;
+	}
+	public void setTeachername(String teachername) {
+		this.teachername = teachername;
+	}
+	
 	
 	
 

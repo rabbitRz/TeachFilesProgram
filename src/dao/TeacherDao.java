@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import bean.Paper;
+import bean.Project;
 import bean.Teacher;
 
 public interface TeacherDao {
@@ -13,5 +14,8 @@ public interface TeacherDao {
 	public Teacher showPersonById(int id);
 	//通过教师id显示个人的论文信息
 	public List<Paper> showPapers(int id);
-
+	//通过教师id显示个人的项目信息
+	public List<Project> showProjects(int id);
+	//显示所有教师信息
+	public List<Teacher> showAllTeachers();
 }

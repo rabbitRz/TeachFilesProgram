@@ -10,10 +10,10 @@
 </head>
 <body background="../../image/TrCourseBg.jpg" style="background-repeat:repeat;background-size:cover;">
 
-<div class="container" style="position:absolute;top:30px;color:black">
+<div class="container" style="position:absolute;top:130px;color:black">
 <form >
   <div class="row no-gutters">
-   <div class="col-2" style="position:relative;left:20px"></div>
+   <div class="col-2" style="position:relative;left:20px;"></div>
     <label belLg" class="align-middle col-auto" style="font-size:20px">班级:</label>
     <div class="col-3"  style="position:relative;left:20px">
       <select id="class" class="form-control">
@@ -24,7 +24,7 @@
     <label for="colFormLabelLg" class="align-middle col-auto" style="font-size:20px;position:relative;left:50px">第:</label>
     <div class="col-auto"  style="position:relative;left:60px">
       <select id="XinQi" class="form-control">
-        <option selected>1</option>
+       
       </select>  
     </div>
     <label class="align-middle col-1" style="font-size:20px;position:relative;left:70px">周</label>
@@ -98,8 +98,10 @@
 <script src="../../bootstrap/js/bootstrap.js"></script>
 <script>
 $(function(){
+	$.get("../../uT?user_id="+<%=request.getParameter("user_id")%>,function(data11){
+		console.log("教师id:"+data11);
 	//教师id
-	var teacher_id="1";
+	var teacher_id=data11;
 	$.get("../../GetCourseClassServlet?teacher_id="+teacher_id,function(data){
 		//console.log(data);
 		$("#class").html("");
@@ -272,6 +274,7 @@ $(function(){
 		})
 		}
 	})
+	});
 });
 </script>
 </html>

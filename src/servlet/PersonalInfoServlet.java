@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Paper;
+import bean.Project;
 import bean.Teacher;
 import dao.TeacherDao;
 import daoImpl.TeacherDaoImpl;
@@ -54,6 +55,9 @@ public class PersonalInfoServlet extends HttpServlet {
 		System.out.println("老师的id："+teacher.getId());
 		List<Paper> papers=teacherDao.showPapers(teacher.getId());
 		request.setAttribute("papers", papers);
+		
+		List<Project> projects=teacherDao.showProjects(teacher.getId());
+		request.setAttribute("projects", projects);
 		request.getRequestDispatcher("teacher/personal/personalInfo.jsp").forward(request, response);
 	}
 
