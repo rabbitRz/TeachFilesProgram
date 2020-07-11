@@ -191,16 +191,42 @@ public class TeacherDaoImpl implements TeacherDao{
 			}
 			return list;
 		}
-
+	//通过教师id显示用户信息
+	public User getTeacherInfo(String teacher_id) {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		String sql="select u.* from user u,teacher t where t.user_id=u.user_id and t.id="+teacher_id;
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		User user=new User();
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while (rs.next()) {
+				user.setPassword(rs.getString("password"));
+				user.setRole_id(rs.getInt("role_id"));
+				user.setUser_id(rs.getInt("user_id"));
+				user.setUsername(rs.getString("username"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return user;
+	}
 	public static void main(String[] args) {
 	TeacherDaoImpl daoImpl=new TeacherDaoImpl();
-	int user_id=1;
+	/*int user_id=1;
 	try {
 		List<Paper> teachers=daoImpl.showPapers(1);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	}*/
+	System.out.println(daoImpl.getTeacherInfo("4").getUsername());
 }
+	
 
 }

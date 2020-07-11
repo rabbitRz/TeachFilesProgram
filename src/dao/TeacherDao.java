@@ -5,6 +5,7 @@ import java.util.List;
 import bean.Paper;
 import bean.Project;
 import bean.Teacher;
+import bean.User;
 
 public interface TeacherDao {
 	
@@ -18,4 +19,6 @@ public interface TeacherDao {
 	public List<Project> showProjects(int id);
 	//显示所有教师信息
 	public List<Teacher> showAllTeachers();
+	//通过教师id显示用户信息
+	public User getTeacherInfo(String teacher_id);
 }

@@ -36,8 +36,8 @@ public class GetApplicationServlet extends HttpServlet {
 		//System.out.println(teacher_id);
 		List<Application> applications=dao.findbytid(teacher_id);
 		Teacher teacher=teacherDaoImpl.showPersonById(teacher_id);
-		System.out.println(teacher);
-	    request.setAttribute("teacher",teacher);
+		System.out.println(String.valueOf(teacher.getId()));
+	    request.setAttribute("teacher_id",request.getParameter("teacher_id"));
 		request.setAttribute("applications",applications);		
 			
 		request.getRequestDispatcher("application/application.jsp").forward(request, response);

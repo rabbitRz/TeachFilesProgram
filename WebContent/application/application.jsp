@@ -1,3 +1,4 @@
+<%@page import="javafx.scene.chart.PieChart.Data"%>
 <%@page import="bean.Teacher"%>
 <%@ page language="java"  import="java.util.*,bean.Application"
 contentType="text/html; charset=UTF-8"
@@ -10,8 +11,8 @@ pageEncoding="UTF-8"%>
 <title>校园</title>
 </head>
 <body>
-<!-- <a href="<%=request.getContextPath()%>/teacher/index.jsp?user="
- style="font-size:20px;color:green;position:relative;top:20px;margin-left:20px">返回主页面</a>-->
+ <a href="" id="ooo"
+ style="font-size:20px;color:green;position:relative;top:20px;margin-left:20px">返回主页面</a>
   
   <div class="py-5 text-center" style="margin-top:50px;">
     <img class="d-block mx-auto mb-4" src="<%=request.getContextPath()%>/image/headpo.jpg" alt="" width="88" height="88">
@@ -74,8 +75,9 @@ pageEncoding="UTF-8"%>
    <script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.js"></script>
    <script type="text/javascript">
    //根据教师id显示用户信息
-   $.getJSON("../",function(data){
-	   
+   $.getJSON('<%=request.getContextPath()%>/userInfoTr?teacher_id=<%=request.getAttribute("teacher_id")%>',function(data){
+	   console.log(data);
+	   document.getElementById("ooo").href='./LoginServlet?username='+data.username+'&password='+data.password;
    })
    </script>
 </body>

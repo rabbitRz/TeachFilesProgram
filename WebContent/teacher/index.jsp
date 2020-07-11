@@ -51,21 +51,19 @@
       <li class="nav-item active">
         <a class="nav-link"  href="<%=request.getContextPath()%>/teacher/Home.jsp" target="showframe">首页 </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" style="position:relative;left:10px">
         <a class="nav-link" href="<%=request.getContextPath()%>/GetSchoolServlet" target="showframe">校园</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" style="position:relative;left:10px">
         <a class="nav-link" href="<%=request.getContextPath()%>/teacher/Course/CourseIndex.jsp?user_id=<%=user.getUser_id() %>"  target="showframe">课程表</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" style="position:relative;left:10px">
         <a class="nav-link" href="<%=request.getContextPath()%>/teacher/Scientific/index.jsp?user_id=<%=user.getUser_id() %>" target="showframe">科研</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="login.html" target="showframe">论文</a>
+      <li class="nav-item" style="position:relative;left:10px">
+        <a class="nav-link" id="shenhe" href="#" target="showframe">审核</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="login.html" target="showframe">成绩</a>
-      </li>
+
     </ul>
     </div>
     <!-- user login dropdown start-->
@@ -82,7 +80,7 @@
                             <li class="eborder-top">
                                 <a href="<%=request.getContextPath()%>/PersonalInfoServlet?user_id=<%=user.getUser_id() %>"><i class="icon_profile"></i> My Profile</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
                             </li>
                             <li>
@@ -92,14 +90,16 @@
                                 <a href="#"><i class="icon_chat_alt"></i> Chats</a>
                             </li>
                             <li>
+                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
+                            </li>
+                            <li>
+                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
+                            </li>
+                             -->
+                            <li>
                                 <a href="<%=request.getContextPath()%>/login.jsp"><i class="icon_key_alt"></i> Log Out</a>
                             </li>
-                            <li>
-                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
-                            </li>
-                            <li>
-                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
-                            </li>
+                    
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
@@ -151,6 +151,13 @@
 	<script src="<%=request.getContextPath()%>/bootstrap/js/sparklines.js"></script>	
 	<script src="<%=request.getContextPath()%>/bootstrap/js/charts.js"></script>
 	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery.slimscroll.min.js"></script>
-
+<script>
+$(function(){
+	//审核界面跳转
+	$.get("<%=request.getContextPath()%>/uT?user_id="+<%=user.getUser_id()%>,function(data11){
+		document.getElementById("shenhe").href='<%=request.getContextPath()%>/GetApplicationServlet?teacher_id='+data11;
+	})
+})
+</script>
 </body>
 </html>
