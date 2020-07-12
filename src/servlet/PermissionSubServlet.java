@@ -41,7 +41,7 @@ public class PermissionSubServlet extends HttpServlet {
 		String people_permission=request.getParameter("people_permission");
 		String flag="";
 		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
-		if(people_permission=="N") {
+		if(people_permission.equals("N")) {
 			flag="论文编号为"+paper_id+"的论文申请提交失败！";
 			//插入result语句
 			daoImpl.UpdateRes(paper_id, "N");

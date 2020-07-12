@@ -220,7 +220,7 @@ $(function(){
 		console.log("tip:"+data);
 		for(var i=0;i<data.length;i++){
 			var tty="失败";
-			if(data[i].info="Y")
+			if(data[i].info=="Y")
 				tty="成功";
 			var res=confirm("论文编号为"+data[i].paper_id+"申请"+tty);
 			if(res){
