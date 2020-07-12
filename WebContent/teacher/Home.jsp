@@ -7,12 +7,13 @@
 <meta charset="UTF-8">
 <link href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="templatemo_style.css" rel="stylesheet" type="text/css">
 <title>首页</title>
 </head>
 <body>
 
   <!-- 轮播图片 -->
- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top:100px;margin-top:10px">
+ <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top:110px;margin-top:10px">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -20,10 +21,10 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="<%=request.getContextPath()%>/img/lan.jpg" class="d-block w-100" alt="...">
+      <img src="<%=request.getContextPath()%>/img/lan2.jpg" class="d-block w-100" alt="Responsive image">
     </div>
     <div class="carousel-item">
-      <img src="<%=request.getContextPath()%>/img/tig.jpg" class="d-block w-100" alt="...">
+      <img src="<%=request.getContextPath()%>/img/lan1.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
       <img src="<%=request.getContextPath()%>/img/timg.jpg" class="d-block w-100" alt="...">
@@ -39,8 +40,52 @@
   </a>
 </div>
 <br/><br/>
+<div class="container">
+
+<div style="font-size:15px">
+	<div id="templatemo_main">
+    <!-- 
+    	<div class="three_column margin_r25 vertical_divider">
+        	<h3>Happy People</h3>
+            <img src="images/barchart.png" alt="image 1">
+            <p>Suspendisse sed odio ut mi auctor blandit. Duis nulla diam, posuere ac, varius id.</p>
+            <div class="cleaner_h10"></div>
+            <div class="button float_r"><a href="#">More...</a></div>
+        </div>
+  		<div class="three_column margin_r25 vertical_divider">
+        	<h3>Healthy Living</h3>
+            <img src="images/linechart.png" alt="image 2">
+            <p>Nam sodales, pede vel dapibus lobortis, ipsum diam molestie risus, a vulputate risus.</p>
+            <div class="cleaner_h10"></div>
+            <div class="button float_r"><a href="#">More...</a></div>
+        </div>
+         <div class="three_column">
+        	<h3>Work Less</h3>
+            <img src="images/piechart.png" alt="image 3">
+            <p>Aliquam lacus turpis, dapibus eget, tincidunt eu, lobortis et, magna. Integer.</p>
+            <div class="cleaner_h10"></div>
+            <div class="button float_r"><a href="#">More...</a></div>
+        </div><div class="cleaner_h60"></div>
+         -->
+        
+        
+        <h2>兰州理工大学</h2>
+		
+        <div class="image_wrapper fl_img" >
+        <img src="<%=request.getContextPath()%>/img/xiaohui.jpg" alt="image" ></div>
+        <p align="justify">Eco Green Template is one of the <a href="https://www.webmoban.net" target="_parent">free css templates</a>
+         by <a href="https://www.webmoban.net" target="_parent" title="网站模板">网站模板</a>. You may use this template for your personal or commercial websites. Credits go to Free Photos for photos and <a href="#" target="_blank">Smashing Magazine</a> for icons used in this template. Morbi sed nulla ac est cursus suscipit eu ac lectus. Curabitur  ullamcorper nibh nisi, sed eleifend dolor. Pellentesque adipiscing  sollicitudin sapien nec aliquet. Cras rutrum ullamcorper metus, vitae  consectetur dolor vulputate a. Sed nec eros egestas nisl tincidunt  aliquet at in est. Duis luctus nulla metus, a vulputate mauris</p>
+		<p align="justify">Suspendisse et libero eget dui fringilla vulputate. Aliquam faucibus eros sit amet elit lacinia id feugiat enim lacinia. Curabitur sit amet augue id lacus tincidunt commodo. Cras vestibulum est at mi semper sit amet tempus mauris pellentesque. Integer tincidunt eleifend interdum. Fusce posuere eros sed elit placerat dapibus et vitae dolor. Aenean arcu ligula, dapibus id fringilla vel, condimentum id nisi. Vivamus faucibus consequat feugiat.</p>
+    
+    </div> <!-- end of templatemo_main -->
+</div>
+
+</div>
   <!-- 搜索框 -->
-  <table class="container" align=center>	
+
+
+<!-- 
+<table class="container" align=center>	
 <tr align="center">
 <td>
 <form action = "<%=request.getContextPath()%>/Findlun" method = "post">
@@ -59,7 +104,7 @@
 </tr>
 </table>
 <br><br/>
-  <div class="card bg-light mb-3" style="max-width:17rem;margin-top:50px;float:left">
+  <div class="card bg-light mb-3" style="max-width:17rem;margin-top:50px;float:left;margin-left:50px">
   <div class="card-header">
   <h5 class="card-title">校内新闻<a href="login.html" class="card-link" >
   <b style="margin-left:80px;font-size:14px">更多>></b></a></h5>
@@ -74,24 +119,23 @@
   </div>
   
  </div>
- <!-- 热门企业 -->
-<div class="container" style="float:right;width:1000px;height:600px;">
+
+<div class="container" style="float:right;margin-right:70px;width:1000px;height:600px;">
   <h4 class="text-center" >——科研成果——<a href="login.html" class="card-link">
   <b style="font-size:16px;float:right;" >更多>></b></a></h4>
   
   <br>
 <div class="border border-light" >
-<div  class="bg-light text-dark" style="padding:10px">
+<div  class="bg-light text-dark" style="padding-left:30px;padding-top:10px">
 <div class="row">
  <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">论文标题</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
-  <div class="card" style="width: 18rem;">
+  <div class="card" style="width: 18rem;margin-left:10px" >
   <img class="card-img-top" src="..." alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Card title</h5>
@@ -140,8 +184,9 @@
 </div>
 
 </div>
+-->
   <!-- 底部 -->
-<footer class="footer text-center" style="margin-top:600px">
+<footer class="footer text-center" style="margin-top:100px">
 <div class="p-3 mb-2 bg-dark text-white" >
   <div class="container">
     <a class="footer-logo" href="#" ><img src="<%=request.getContextPath()%>/img/icon.png" alt="" style="width: 50px; height: 67px;"></a>
@@ -157,47 +202,9 @@
 <a name="go_top" href="#" role="button" style="position:fixed;right:10px;bottom:10px">
 <img src="<%=request.getContextPath()%>/img/go_top_icon.png" style="width:30px;height:50px"></img>
 </a>
+<script src="<%=request.getContextPath()%>/bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.js"></script>
-<!-- javascripts -->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery-ui-1.10.4.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/bootstrap/js/jquery-ui-1.9.2.custom.min.js"></script>
-    <!-- bootstrap -->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
-    <!-- nice scroll -->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/jquery.scrollTo.min.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <!-- charts scripts -->
-    <script src="<%=request.getContextPath()%>/bootstrap/assets/jquery-knob/js/jquery.knob.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap/js/jquery.sparkline.js" type="text/javascript"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap/js/owl.carousel.js" ></script>
-    <!-- jQuery full calendar -->
-    <<script src="<%=request.getContextPath()%>/bootstrap/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
-	<script src="<%=request.getContextPath()%>/bootstrap/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
-    <!--script for this page only-->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/calendar-custom.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery.rateit.min.js"></script>
-    <!-- custom select -->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/jquery.customSelect.min.js" ></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/assets/chart-master/Chart.js"></script>
-   
-    <!--custome script for all page-->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/scripts.js"></script>
-    <!-- custom script for this page-->
-    <script src="<%=request.getContextPath()%>/bootstrap/js/sparkline-chart.js"></script>
-    <script src="<%=request.getContextPath()%>/bootstrap/js/easy-pie-chart.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery-jvectormap-1.2.2.min.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery-jvectormap-world-mill-en.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/xcharts.min.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery.autosize.min.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery.placeholder.min.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/gdp-data.js"></script>	
-	<script src="<%=request.getContextPath()%>/bootstrap/js/morris.min.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/sparklines.js"></script>	
-	<script src="<%=request.getContextPath()%>/bootstrap/js/charts.js"></script>
-	<script src="<%=request.getContextPath()%>/bootstrap/js/jquery.slimscroll.min.js"></script>
 
 </body>
 </html>
