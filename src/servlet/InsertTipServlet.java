@@ -1,33 +1,26 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import bean.ChangePermission;
 import daoImpl.ChangePermissionDaoImpl;
 
 /**
- * Servlet implementation class PermissionAgreeServlet
- * 查看该成员是否有不同意的申请
+ * Servlet implementation class InsertTipServlet
+ * 
  */
-@WebServlet("/permissionAgree")
-public class PermissionAgreeServlet extends HttpServlet {
+@WebServlet("/insertTip")
+public class InsertTipServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PermissionAgreeServlet() {
+    public InsertTipServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,20 +32,13 @@ public class PermissionAgreeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String techer_idString=request.getParameter("teacher_id");
+		String teacher_id=request.getParameter("teacher_id");
+		String paper_id=request.getParameter("paper_id");
+		String reString=request.getParameter("res");
 		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
-		List<ChangePermission> list=new ArrayList<ChangePermission>();
-		list=daoImpl.getDIsAgree(techer_idString);
-		System.out.println(list.size()+" "+techer_idString);
-		for(int i=0;i<list.size();i++)
-			System.out.println("ll:"+list.get(i));
-		response.setContentType("application/json;charest=UTF-8");
-		ObjectMapper mapper=new ObjectMapper();
-		String data=mapper.writeValueAsString(list);
-		PrintWriter pWriter=response.getWriter();
-		pWriter.println(data);
-		pWriter.flush();
-		pWriter.close();
+		daoImpl.insertTipPer(paper_id, teacher_id, reString);
+		daoImpl.deleTip(paper_id);
+		
 	}
 
 	/**

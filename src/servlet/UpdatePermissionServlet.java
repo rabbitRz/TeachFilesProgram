@@ -13,21 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bean.ChangePermission;
+import bean.course;
+import bean.tip;
 import daoImpl.ChangePermissionDaoImpl;
+import daoImpl.CourseDaoImpl;
 
 /**
- * Servlet implementation class PermissionAgreeServlet
- * 查看该成员是否有不同意的申请
+ * Servlet implementation class UpdatePermissionServlet
  */
-@WebServlet("/permissionAgree")
-public class PermissionAgreeServlet extends HttpServlet {
+@WebServlet("/updatePer")
+public class UpdatePermissionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PermissionAgreeServlet() {
+    public UpdatePermissionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,13 +40,14 @@ public class PermissionAgreeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String techer_idString=request.getParameter("teacher_id");
+		String teacher_id=request.getParameter("teacher_id");
 		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
-		List<ChangePermission> list=new ArrayList<ChangePermission>();
-		list=daoImpl.getDIsAgree(techer_idString);
-		System.out.println(list.size()+" "+techer_idString);
-		for(int i=0;i<list.size();i++)
-			System.out.println("ll:"+list.get(i));
+		daoImpl.updatePaper();
+		daoImpl.insertTip();
+		daoImpl.delete();
+		List<tip> list=new ArrayList<tip>();
+		//System.out.println("tip:"+list.get(0));
+		list=daoImpl.getTip(teacher_id);
 		response.setContentType("application/json;charest=UTF-8");
 		ObjectMapper mapper=new ObjectMapper();
 		String data=mapper.writeValueAsString(list);

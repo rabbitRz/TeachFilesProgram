@@ -238,4 +238,54 @@
     <servlet-name>GetUserInfoByTrIdServlet</servlet-name>
     <url-pattern>/GetUserInfoByTrIdServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ApplicationServlet</display-name>
+    <servlet-name>ApplicationServlet</servlet-name>
+    <servlet-class>servlet.ApplicationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplicationServlet</servlet-name>
+    <url-pattern>/ApplicationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PermissionSubServlet</display-name>
+    <servlet-name>PermissionSubServlet</servlet-name>
+    <servlet-class>servlet.PermissionSubServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PermissionSubServlet</servlet-name>
+    <url-pattern>/PermissionSubServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdatePermissionServlet</display-name>
+    <servlet-name>UpdatePermissionServlet</servlet-name>
+    <servlet-class>servlet.UpdatePermissionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdatePermissionServlet</servlet-name>
+    <url-pattern>/UpdatePermissionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertTipServlet</display-name>
+    <servlet-name>InsertTipServlet</servlet-name>
+    <servlet-class>servlet.InsertTipServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertTipServlet</servlet-name>
+    <url-pattern>/InsertTipServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeletAllTipServlet</display-name>
+    <servlet-name>DeletAllTipServlet</servlet-name>
+    <servlet-class>servlet.DeletAllTipServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletAllTipServlet</servlet-name>
+    <url-pattern>/DeletAllTipServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

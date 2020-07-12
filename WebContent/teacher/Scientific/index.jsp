@@ -173,10 +173,10 @@
         <table class="table table-striped" >
   <thead>
   <tr>
-  若提交的申请中有一人不同意，则将会是该项申请失败！
+  若提交的申请中有一人不同意，则将会是该项申请失败！一经提交不可更改！
   </tr>
     <tr>
-      <th scope="col">申请论文名</th>
+      <th scope="col">申请论文编号</th>
       <th scope="col">成员1</th>
       <th scope="col">成员1意向</th>
       <th scope="col">成员2</th>
@@ -184,10 +184,12 @@
       <th scope="col">成员3</th>
       <th scope="col">成员3意向</th>
       <th scope="col">申请意向</th>
-      <th scope="col">意向</th>
+      <th scope="col">个人意向</th>
+      <th scope="col">提交</th>
     </tr>
   </thead>
-  <tbody id="classInfo">
+  <tbody id="pers">
+  
   </tbody>
 </table> 
 
@@ -209,12 +211,63 @@ $(function(){
 	//教师id
 	var teacher_id=data11;
 	document.getElementById("Mmm").style.display="none";
+	//删除所有满足条件的tip
+	$.get("../../deletAllTip",function(data){
+		
+	})
+	//若论文结果出来，将会对每个人进行提示，之后每一个人确认收到后将会对其进行删除
+	$.getJSON("../../updatePer?teacher_id="+teacher_id,function(data){
+		console.log("tip:"+data);
+		for(var i=0;i<data.length;i++){
+			var tty="失败";
+			if(data[i].info="Y")
+				tty="成功";
+			var res=confirm("论文编号为"+data[i].paper_id+"申请"+tty);
+			if(res){
+				$.post("../../insertTip",{paper_id:data[i].paper_id,teacher_id:teacher_id,res:"Y"},function(data){
+					
+				})
+			}else{
+				$.post("../../insertTip",{paper_id:data[i].paper_id,teacher_id:teacher_id,res:"N"},function(data){
+					
+				})
+			}
+		}
+		
+	})
 	//若论文某一成员提交了论文申请，其余成员将会收到申请，之后对其进行申请判断
 	$.getJSON("../../permissionAgree?teacher_id="+teacher_id,function(data){
-		console.log(data);
+		console.log("申请："+data);
+		var str1="";
 		if(data.length>0){
 			document.getElementById("Mmm").style.display="block";
+			for(var i=0;i<data.length;i++){
+				str1+='<tr>'+
+			     '<th scope="row" >'+data[i].parper_id+'</th>'+
+			     '<td>'+data[i].people1_name+'</td>'+
+			     '<td>'+data[i].people1_permission+'</td>'+
+			     '<td>'+data[i].people2_name+'</td>'+
+			     '<td>'+data[i].people2_permission+'</td>'+
+			     '<td>'+data[i].people3_name+'</td>'+
+			     '<td>'+data[i].people3_permission+'</td>'+
+			     '<td>'+data[i].application+'</td>'+
+			     '<td><label><input name="peoplePer'+data[i].parper_id+'" type="radio" value="Y" checked />同意 </label>'+ 
+			     '<br/><label><input name="peoplePer'+data[i].parper_id+'" type="radio" value="N" />不同意 </label> </td>'+
+			     '<td><button type="button" class="btn btn-success"  id="PermissionSubmit">提交</button></td>'
+			     '</tr>';
+			}
+			$("#pers").append(str1);
+			$("#PermissionSubmit").click(function(){
+				//获取点击的该列对应的第一列的值
+				var paper_id=$(this).closest("tr").find("th").eq(0).text();
+				//获取个人意向
+				var people_permission=$("input[name='peoplePer"+paper_id+"']:checked").val();
+				$.post("../../PermissionSub",{teacher_id:teacher_id,paper_id:paper_id,people_permission:people_permission},function(data){
+					alert(data);
+				})
+			})
 		}
+		
 	})
 	
 	//$.getJSON("../../")

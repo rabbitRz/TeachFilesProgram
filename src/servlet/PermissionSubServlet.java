@@ -2,8 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,21 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bean.ChangePermission;
 import daoImpl.ChangePermissionDaoImpl;
 
 /**
- * Servlet implementation class PermissionAgreeServlet
- * 查看该成员是否有不同意的申请
+ * Servlet implementation class PermissionSubServlet
+ * 根据个人意愿对申请表进行修改
  */
-@WebServlet("/permissionAgree")
-public class PermissionAgreeServlet extends HttpServlet {
+@WebServlet("/PermissionSub")
+public class PermissionSubServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PermissionAgreeServlet() {
+    public PermissionSubServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,18 +36,29 @@ public class PermissionAgreeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String techer_idString=request.getParameter("teacher_id");
+		String teacher_id=request.getParameter("teacher_id");
+		String paper_id=request.getParameter("paper_id");
+		String people_permission=request.getParameter("people_permission");
+		String flag="";
 		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
-		List<ChangePermission> list=new ArrayList<ChangePermission>();
-		list=daoImpl.getDIsAgree(techer_idString);
-		System.out.println(list.size()+" "+techer_idString);
-		for(int i=0;i<list.size();i++)
-			System.out.println("ll:"+list.get(i));
-		response.setContentType("application/json;charest=UTF-8");
-		ObjectMapper mapper=new ObjectMapper();
-		String data=mapper.writeValueAsString(list);
+		if(people_permission=="N") {
+			flag="论文编号为"+paper_id+"的论文申请提交失败！";
+			//插入result语句
+			daoImpl.UpdateRes(paper_id, "N");
+		}else{
+			boolean t=false;
+			//更新语句per
+			t=daoImpl.insertPer(paper_id, teacher_id, people_permission);
+			//更新result
+			daoImpl.UpdateResY(paper_id, "Y");
+			if(t)
+				flag="论文更新成功";
+			else {
+				flag="论文更新失败";
+			}
+		}
 		PrintWriter pWriter=response.getWriter();
-		pWriter.println(data);
+		pWriter.println(flag);
 		pWriter.flush();
 		pWriter.close();
 	}

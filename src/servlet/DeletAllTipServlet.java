@@ -13,21 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bean.ChangePermission;
+import bean.tip;
 import daoImpl.ChangePermissionDaoImpl;
 
 /**
- * Servlet implementation class PermissionAgreeServlet
- * 查看该成员是否有不同意的申请
+ * Servlet implementation class DeletAllTipServlet
  */
-@WebServlet("/permissionAgree")
-public class PermissionAgreeServlet extends HttpServlet {
+@WebServlet("/deletAllTip")
+public class DeletAllTipServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PermissionAgreeServlet() {
+    public DeletAllTipServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,20 +38,9 @@ public class PermissionAgreeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String techer_idString=request.getParameter("teacher_id");
 		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
-		List<ChangePermission> list=new ArrayList<ChangePermission>();
-		list=daoImpl.getDIsAgree(techer_idString);
-		System.out.println(list.size()+" "+techer_idString);
-		for(int i=0;i<list.size();i++)
-			System.out.println("ll:"+list.get(i));
-		response.setContentType("application/json;charest=UTF-8");
-		ObjectMapper mapper=new ObjectMapper();
-		String data=mapper.writeValueAsString(list);
-		PrintWriter pWriter=response.getWriter();
-		pWriter.println(data);
-		pWriter.flush();
-		pWriter.close();
+		boolean f=daoImpl.deleAllTip();
+		System.out.println("全部删除结果："+f);
 	}
 
 	/**

@@ -6,13 +6,24 @@ public class ChangePermission {
 	private int people1_id;//成员1id
 	private String people1_name;//成员1姓名
 	private String people1_permission;//成员1是否同意
+	private String people1_res;//成员1是否收到通知
 	private int people2_id;//成员2id
 	private String people2_name;//成员2姓名
 	private String people2_permission;//成员2是否同意
+	private String people2_res;//成员2是否收到通知
 	private int people3_id;//成员3id
 	private String people3_name;//成员3姓名
 	private String people3_permission;//成员3是否同意
+	private String people3_res;//成员3是否收到通知
 	private String application;//申请
+	private String result;//申请结果
+	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
 	public int getId() {
 		return id;
 	}
@@ -85,13 +96,33 @@ public class ChangePermission {
 	public void setApplication(String application) {
 		this.application = application;
 	}
+	public String getPeople1_res() {
+		return people1_res;
+	}
+	public String getPeople2_res() {
+		return people2_res;
+	}
+	public String getPeople3_res() {
+		return people3_res;
+	}
+	public void setPeople1_res(String people1_res) {
+		this.people1_res = people1_res;
+	}
+	public void setPeople2_res(String people2_res) {
+		this.people2_res = people2_res;
+	}
+	public void setPeople3_res(String people3_res) {
+		this.people3_res = people3_res;
+	}
 	@Override
 	public String toString() {
 		return "ChangePermission [id=" + id + ", parper_id=" + parper_id + ", people1_id=" + people1_id
-				+ ", people1_name=" + people1_name + ", people1_permission=" + people1_permission + ", people2_id="
-				+ people2_id + ", people2_name=" + people2_name + ", people2_permission=" + people2_permission
-				+ ", people3_id=" + people3_id + ", people3_name=" + people3_name + ", people3_permission="
-				+ people3_permission + ", application=" + application  + "]";
+				+ ", people1_name=" + people1_name + ", people1_permission=" + people1_permission + ", people1_res="
+				+ people1_res + ", people2_id=" + people2_id + ", people2_name=" + people2_name
+				+ ", people2_permission=" + people2_permission + ", people2_res=" + people2_res + ", people3_id="
+				+ people3_id + ", people3_name=" + people3_name + ", people3_permission=" + people3_permission
+				+ ", people3_res=" + people3_res + ", application=" + application + ", result=" + result + "]";
 	}
+	
 	
 }

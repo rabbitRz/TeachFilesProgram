@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.midi.Soundbank;
+
 import com.sun.crypto.provider.RSACipher;
 
 import Utils.DBUtils;
 import bean.ChangePermission;
+import bean.tip;
 import dao.ChangePermissionDao;
 
 public class ChangePermissionDaoImpl implements ChangePermissionDao{
@@ -111,7 +114,7 @@ public class ChangePermissionDaoImpl implements ChangePermissionDao{
 		// TODO Auto-generated method stub
 		Connection conn=DBUtils.getConnection();
 		String sql="SELECT * from ChangePermission where people1_id="+teacher_id+" or people2_id="+teacher_id + 
-				" or people3_id="+teacher_id;
+				" or people3_id="+teacher_id+" and ISNULL(result)";
 		//System.out.println(sql);
 		PreparedStatement st=null;
 		ResultSet rs=null;
@@ -164,15 +167,441 @@ public class ChangePermissionDaoImpl implements ChangePermissionDao{
 		}
 		return list;
 	}
+	//更新result
+	public boolean UpdateRes(String paper_id, String result) {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		String sql="update ChangePermission set result='"+result+"' where paper_id="+paper_id;
+		PreparedStatement st=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			int t=st.executeUpdate();
+			if(t==1)
+				flag=true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(null, st, conn);
+		}
+		return flag;
+	}
+	//插入个人意愿
+	public boolean insertPer(String paper_id, String teacher_id, String people_permission) {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		Connection conn1=DBUtils.getConnection();
+		String sql="select * from ChangePermission where paper_id="+paper_id;
+		String sql1="";
+		PreparedStatement st=null,st1=null;
+		ResultSet rs=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			if(rs.next()) {
+				int t=rs.getInt("people1_id");
+				if(t==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people1_permission")==""||rs.getString("people1_permission")==null) {
+						sql1="update ChangePermission set people1_permission='"+people_permission+"' where paper_id="+paper_id;
+						st1=conn1.prepareStatement(sql1);
+						int ii=st1.executeUpdate();
+						if(ii==1)
+							flag=true;
+					}
+				}
+				t=rs.getInt("people2_id");
+				if(t==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people2_permission")==""||rs.getString("people2_permission")==null) {
+						sql1="update ChangePermission set people2_permission='"+people_permission+"' where paper_id="+paper_id;
+						st1=conn1.prepareStatement(sql1);
+						int ii=st1.executeUpdate();
+						if(ii==1)
+							flag=true;
+					}
+				}
+				t=rs.getInt("people3_id");
+				if(t==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people3_permission")==""||rs.getString("people3_permission")==null) {
+						sql1="update ChangePermission set people3_permission='"+people_permission+"' where paper_id="+paper_id;
+						st1=conn1.prepareStatement(sql1);
+						int ii=st1.executeUpdate();
+						if(ii==1)
+							flag=true;
+					}
+				}
+			}
+			System.out.println(sql);
+			System.out.println(sql1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+			DBUtils.close(null, st1, conn1);
+		}
+		return flag;
+	}
+	//若条件符合，更新result为'Y'
+	public boolean UpdateResY(String paper_id, String result) {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		String sql="update ChangePermission set result='Y' where paper_id="+paper_id + 
+				" and " + 
+				"case WHEN ISNULL(people1_id) THEN " + 
+				"ISNULL(people1_permission) " + 
+				"ELSE " + 
+				"people1_permission='Y' " + 
+				"END " + 
+				" and " + 
+				"case WHEN ISNULL(people2_id) THEN " + 
+				"ISNULL(people2_permission) " + 
+				"ELSE " + 
+				"people2_permission=\"Y\"\r\n" + 
+				"END\r\n" + 
+				" and \r\n" + 
+				"case WHEN ISNULL(people3_id) THEN\r\n" + 
+				"ISNULL(people3_permission)\r\n" + 
+				"ELSE\r\n" + 
+				"people3_permission=\"Y\"\r\n" + 
+				"END\r\n" ;
+		System.out.println(sql);
+		PreparedStatement st=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			int t=st.executeUpdate();
+			if(t==1)
+				flag=true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(null, st, conn);
+		}
+		return flag;
+	}
+	//查看所有result不为空的信息，并将其插入到tip表中
+	public boolean insertTip() {
+			// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		String sql="insert into tip(paper_id,people1_id,people2_id,people3_id,info)  \r\n" + 
+				"(SELECT paper_id,people1_id,people2_id,people3_id,result from ChangePermission WHERE NOT ISNULL(result)) ";
+		PreparedStatement st=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			int t=st.executeUpdate();
+			if(t==1)
+				flag=true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(null, st, conn);
+		}
+		return flag;
+	}
+	//删除result不为空的信息
+	public boolean delete() {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		String sql="delete from ChangePermission where NOT ISNULL(result)";
+		PreparedStatement st=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			int t=st.executeUpdate();
+			if(t==1)
+				flag=true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(null, st, conn);
+		}
+		return flag;
+	}
+	//查询tip中需要提示给个人的信息
+	public List<tip> getTip(String teacher_id) {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		String sql="SELECT * from tip where people1_id="+teacher_id+" "
+				+ "or people2_id="+teacher_id+" or people3_id="+teacher_id;
+		//System.out.println("tip:"+sql);
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		List<tip> list=new ArrayList<tip>();
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while (rs.next()) {
+				int t1=rs.getInt("people1_id");
+				if(t1==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people1_res")==""||rs.getString("people1_res")==null) {
+						tip t=new tip();
+						t.setInfo(rs.getString("info"));
+						t.setPaper_id(rs.getInt("paper_id"));
+						t.setPeople1_id(rs.getInt("people1_id"));
+						t.setPeople1_res(rs.getString("people1_res"));
+						t.setPeople2_id(rs.getInt("people2_id"));
+						t.setPeople2_res(rs.getString("people2_res"));
+						t.setPeople3_id(rs.getInt("people3_id"));
+						t.setPeople3_res(rs.getString("people3_res"));
+						list.add(t);
+					}
+				}
+				t1=rs.getInt("people2_id");
+				if(t1==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people2_res")==""||rs.getString("people2_res")==null) {
+						tip t=new tip();
+						t.setInfo(rs.getString("info"));
+						t.setPaper_id(rs.getInt("paper_id"));
+						t.setPeople1_id(rs.getInt("people1_id"));
+						t.setPeople1_res(rs.getString("people1_res"));
+						t.setPeople2_id(rs.getInt("people2_id"));
+						t.setPeople2_res(rs.getString("people2_res"));
+						t.setPeople3_id(rs.getInt("people3_id"));
+						t.setPeople3_res(rs.getString("people3_res"));
+						list.add(t);	
+					}
+				}
+				t1=rs.getInt("people3_id");
+				if(t1==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people3_permission")==""||rs.getString("people3_permission")==null) {
+						tip t=new tip();
+						t.setInfo(rs.getString("info"));
+						t.setPaper_id(rs.getInt("paper_id"));
+						t.setPeople1_id(rs.getInt("people1_id"));
+						t.setPeople1_res(rs.getString("people1_res"));
+						t.setPeople2_id(rs.getInt("people2_id"));
+						t.setPeople2_res(rs.getString("people2_res"));
+						t.setPeople3_id(rs.getInt("people3_id"));
+						t.setPeople3_res(rs.getString("people3_res"));
+						list.add(t);	
+					}
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return list;
+	}
+	//更改论文状态
+	public boolean updatePaper() {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		Connection conn1=DBUtils.getConnection();
+		String sql="SELECT paper_id,application from ChangePermission WHERE result='Y'";
+		String sql1="update paperpeople set permission=";
+		//System.out.println("tip:"+sql);
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		PreparedStatement st1=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while (rs.next()) {
+				if(rs.getString("application").equals("公开")) {
+					sql1=sql1+"1 where paper_id="+rs.getInt("paper_id");
+				}
+				else if(rs.getString("application").equals("私有")) {
+					sql1=sql1+"0 where paper_id="+rs.getInt("paper_id");
+				}
+				System.out.println("权限更新："+rs.getString("application")+" \n"+sql1);
+				st1=conn1.prepareStatement(sql1);
+				int t=st1.executeUpdate();
+				if(t==1)
+					flag=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+			DBUtils.close(null, st1, conn1);
+		}
+		
+		return flag;
+	}
+	//在tip表中个人意见
+	public boolean insertTipPer(String paper_id,String teacher_id,String res) {
+		Connection conn=DBUtils.getConnection();
+		Connection conn1=DBUtils.getConnection();
+		String sql="select * from tip where paper_id="+paper_id;
+		String sql1="";
+		PreparedStatement st=null,st1=null;
+		ResultSet rs=null;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			if(rs.next()) {
+				int t=rs.getInt("people1_id");
+				if(t==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people1_res")==""||rs.getString("people1_res")==null) {
+						sql1="update tip set people1_res='"+res+"' where paper_id="+paper_id;
+						st1=conn1.prepareStatement(sql1);
+						int ii=st1.executeUpdate();
+						if(ii==1)
+							flag=true;
+					}
+				}
+				t=rs.getInt("people2_id");
+				if(t==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people2_res")==""||rs.getString("people2_res")==null) {
+						sql1="update tip set people2_res='"+res+"' where paper_id="+paper_id;
+						st1=conn1.prepareStatement(sql1);
+						int ii=st1.executeUpdate();
+						if(ii==1)
+							flag=true;
+					}
+				}
+				t=rs.getInt("people3_id");
+				if(t==Integer.parseInt(teacher_id)) {
+					if(rs.getString("people3_res")==""||rs.getString("people3_res")==null) {
+						sql1="update tip set people3_res='"+res+"' where paper_id="+paper_id;
+						st1=conn1.prepareStatement(sql1);
+						int ii=st1.executeUpdate();
+						if(ii==1)
+							flag=true;
+					}
+				}
+			}
+			System.out.println(sql);
+			System.out.println(sql1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+			DBUtils.close(null, st1, conn1);
+		}
+		return flag;
+	}
+	public boolean deleTip(String paper_id) {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		Connection conn1=DBUtils.getConnection();
+		String sql="select * from tip where paper_id="+paper_id;
+		String sql1="delete from tip where  paper_id="+paper_id;;
+		PreparedStatement st=null,st1=null;
+		ResultSet rs=null;
+		boolean flag1=false;
+		boolean flag2=false;
+		boolean flag3=false;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			if(rs.next()) {
+				int t=rs.getInt("people1_id");
+				if(t!=0) {
+					if(rs.getString("people1_res")==""||rs.getString("people1_res")==null) {
+						flag1=true;
+					}
+				}
+				
+				t=rs.getInt("people2_id");
+				if(t!=0) {
+					if(rs.getString("people2_res")==""||rs.getString("people2_res")==null) {
+						flag2=true;
+					}
+				}
+				t=rs.getInt("people3_id");
+				if(t!=0) {
+					if(rs.getString("people3_res")==""||rs.getString("people3_res")==null) {
+						flag3=true;
+					}
+				}
+				System.out.println("删除flag:"+flag1+" "+flag2+" "+flag3);
+				if(!flag1&&!flag2&&!flag3) {
+					st1=conn1.prepareStatement(sql1);
+					int t8=st1.executeUpdate();
+					if(t8==1)
+						flag=true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+			DBUtils.close(null, st1, conn1);
+		}
+		return flag;
+		
+	}
+	//删除所有满足条件的tip
+	public boolean deleAllTip() {
+		// TODO Auto-generated method stub
+		Connection conn=DBUtils.getConnection();
+		Connection conn1=DBUtils.getConnection();
+		String sql="select * from tip";
+		String sql1="delete from tip where  paper_id=";
+		PreparedStatement st=null,st1=null;
+		ResultSet rs=null;
+		boolean flag1=false;
+		boolean flag2=false;
+		boolean flag3=false;
+		boolean flag=false;
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while(rs.next()) {
+				int t=rs.getInt("people1_id");
+				if(t!=0) {
+					if(rs.getString("people1_res")==""||rs.getString("people1_res")==null) {
+						flag1=true;
+					}
+				}
+				t=rs.getInt("people2_id");
+				if(t!=0) {
+					if(rs.getString("people2_res")==""||rs.getString("people2_res")==null) {
+						flag2=true;
+					}
+				}
+				t=rs.getInt("people3_id");
+				if(t!=0) {
+					if(rs.getString("people3_res")==""||rs.getString("people3_res")==null) {
+						flag3=true;
+					}
+				}
+				//System.out.println("删除flag:"+flag1+" "+flag2+" "+flag3);
+				if(!flag1&&!flag2&&!flag3) {
+					st1=conn1.prepareStatement(sql1+rs.getInt("paper_id"));
+					int t8=st1.executeUpdate();
+					if(t8==1)
+						flag=true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+			DBUtils.close(null, st1, conn1);
+		}
+		return flag;
+		
+	}
+	
 	public static void main(String[] args) {
 		ChangePermissionDaoImpl daoImpl=new ChangePermissionDaoImpl();
 		/*boolean t=daoImpl.insertChangePermission("2", "1", "Y", "公开");
 		System.out.println(t);*/
-		List<ChangePermission> list=new ArrayList<ChangePermission>();
-		list=daoImpl.getDIsAgree("2");
+		/*List<ChangePermission> list=new ArrayList<ChangePermission>();
+		list=daoImpl.getDIsAgree("1");
 		System.out.println("集合长度"+list.size()+"\n");
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
-		}
+		}*/
+		boolean f=daoImpl.deleTip("1");
+		System.out.println(f);
 	}
 }
