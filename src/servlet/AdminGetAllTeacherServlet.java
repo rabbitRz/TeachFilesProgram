@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,24 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bean.User;
+import bean.Teacher;
 import bean.course;
-import dao.UserDao;
 import daoImpl.CourseDaoImpl;
-import daoImpl.UserDaoImpl;
+import daoImpl.TeacherDaoImpl;
 
 /**
- * Servlet implementation class AdminUpdateHrefServlet
- * 通过课程id查看课程表信息
+ * Servlet implementation class AdminGetAllTeacherServlet
+ * 获取所有老师
  */
-@WebServlet("/adminCourseUpdate")
-public class AdminUpdateHrefServlet extends HttpServlet {
+@WebServlet("/AdminGetAllTeacher")
+public class AdminGetAllTeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminUpdateHrefServlet() {
+    public AdminGetAllTeacherServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,12 +41,15 @@ public class AdminUpdateHrefServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String course_idString=request.getParameter("course_id");
-		CourseDaoImpl daoImpl=new CourseDaoImpl();
-		course c=new course();
-		c=daoImpl.getCourseById(course_idString);
+		response.setContentType("application/json;charest=UTF-8");
+		TeacherDaoImpl daoImpl=new TeacherDaoImpl();
+		List<Teacher> list=new ArrayList<Teacher>();
+		list=daoImpl.showAllTeachers();
+		/*for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}*/
 		ObjectMapper mapper=new ObjectMapper();
-		String data=mapper.writeValueAsString(c);
+		String data=mapper.writeValueAsString(list);
 		PrintWriter pWriter=response.getWriter();
 		pWriter.println(data);
 		pWriter.flush();

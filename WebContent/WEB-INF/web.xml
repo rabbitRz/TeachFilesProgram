@@ -318,4 +318,24 @@
     <servlet-name>AdminUpdateHrefServlet</servlet-name>
     <url-pattern>/AdminUpdateHrefServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminGetAllTeacherServlet</display-name>
+    <servlet-name>AdminGetAllTeacherServlet</servlet-name>
+    <servlet-class>servlet.AdminGetAllTeacherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminGetAllTeacherServlet</servlet-name>
+    <url-pattern>/AdminGetAllTeacherServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminGetAllTermServlet</display-name>
+    <servlet-name>AdminGetAllTermServlet</servlet-name>
+    <servlet-class>servlet.AdminGetAllTermServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminGetAllTermServlet</servlet-name>
+    <url-pattern>/AdminGetAllTermServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

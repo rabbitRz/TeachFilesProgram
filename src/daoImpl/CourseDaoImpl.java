@@ -173,6 +173,51 @@ public class CourseDaoImpl implements CourseDao {
 			
 			return list;
 		}
+		//根据课程id查看课程信息
+		public course getCourseById(String course_id) {
+			// TODO Auto-generated method stub
+			Connection conn=DBUtils.getConnection();
+			String sql="select c.*,t.name name from course c,teacher t where t.id=c.teacher_id and course_id="+course_id;
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			course c=new course();
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				if(rs.next()) {
+					c.setCourse_class(rs.getString("course_class"));
+					c.setCourse_hours(rs.getInt("course_hours"));
+					c.setCourse_id(rs.getInt("course_id"));
+					c.setCourse_name(rs.getString("course_name"));
+					c.setCourse_place(rs.getString("course_place"));
+					c.setStart_courseweek(rs.getInt("start_courseweek"));
+					c.setEnd_courseweek(rs.getInt("end_courseweek"));
+					c.setCouser_peoplenum(rs.getInt("course_peoplenum"));
+					c.setTeacher_id(rs.getInt("teacher_id"));
+					c.setTeachr_name(rs.getString("name"));
+					c.setTerm_start(rs.getString("term_start"));
+					c.setWeek(rs.getString("week"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(rs, st, conn);
+			}
+			
+			return c;
+		}
+		//根据课程id进行修改信息
+		public boolean UpdateCourseById(String course_id) {
+			// TODO Auto-generated method stub
+			
+			return false;
+		}
+		//根据课程id删除课程信息
+		public boolean deleteCourse(String id) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 		public static void main(String[] args) {
 			CourseDaoImpl daoImpl=new CourseDaoImpl();
 			/*List<String> list=daoImpl.GetClassByTrId("1");
@@ -186,5 +231,4 @@ public class CourseDaoImpl implements CourseDao {
 				System.out.println(list.get(i));
 		}
 }
-
 }

@@ -39,119 +39,74 @@
                           <div class="panel-body">
                           <form class="form-validate form-horizontal " id="register_form" method="get" >
                           <div class="form">
-                              
-<% 
-Teacher t=(Teacher)request.getAttribute("teacher"); 
-%>
 								<div class="form-group">
-                                     <label class="col-sm-2 control-label">教师id</label>
+                                     <label class="col-sm-2 control-label">课程名称</label>
                                      <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="id" readOnly="true" value="<%=t.getId() %>">
+                                          <input type="text" class="form-control" id="name" name="name"  value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label class="col-sm-2 control-label">教师姓名</label>
+                                      <label class="col-sm-2 control-label">课程班级</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="name" value="<%=t.getName() %>">
+                                          <input type="text" class="form-control" id="class" name="class" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label for="username" class="col-sm-2 control-label">用户名<span class="required">*</span></label>
+                                      <label for="username" class="col-sm-2 control-label">课程节数<span class="required">*</span></label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" id="username" name="username" value="<%=t.getUser().getUsername() %>">
+                                          <input type="text" class="form-control" id="hour" name="hour" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label for="password" class="col-sm-2 control-label">密码<span class="required">*</span></label>
+                                      <label for="password" class="col-sm-2 control-label">课程容量<span class="required">*</span></label>
                                       <div class="col-sm-10">
-                                          <input type="password" class="form-control" id="password" name="password" value="<%=t.getUser().getPassword() %>">
+                                          <input type="text" class="form-control" id="peoplenum" name="peoplenum" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label for="confirm_password" class="col-sm-2 control-label">确认密码<span class="required">*</span></label>
+                                      <label for="confirm_password" class="col-sm-2 control-label">课程地点<span class="required">*</span></label>
                                       <div class="col-sm-10">
-                                          <input type="password" class="form-control" id="confirm_password" name="confirm_password" value="<%=t.getUser().getPassword() %>">
+                                          <input type="text" class="form-control" id="place" name="place" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                     <label class="col-sm-2 control-label" for="inputSuccess">性别</label>
+                                     <label class="col-sm-2 control-label" for="inputSuccess">代课老师</label>
                                      <div class="col-sm-10">
-                                          <div class="form-check">
-                                              <input type="radio" name="sex" id="sex1" value="男" <%=t.getSex().equals("男")?"checked":"" %>>
-											  <label class="form-check-label" for="sex1">
-                                                 男
-                                              </label>
-                                          </div>
-                                          <div class="form-check">
-                                                  <input type="radio" name="sex" id="sex2" value="女" <%=t.getSex().equals("女")?"checked":"" %>>
-                                                  <label class="form-check-label" for="sex21">
-                                                 女
-                                              </label>
-                                          </div>
-
+                                         <select id="teacher" name="teacher" class="form-control">
+										        <option selected>Choose...</option>
+										        <option>...</option>
+										      </select> 
                                       </div>
                                   </div>
 
                                   <div class="form-group">
-                                      <label class="col-sm-2 control-label">籍贯</label>
+                                      <label class="col-sm-2 control-label">课程开始周</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="nativeplace" value="<%=t.getNativeplace() %>">
+                                          <input type="text" class="form-control" name="startweek" id="startweek" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label class="col-sm-2 control-label">生日</label>
+                                      <label class="col-sm-2 control-label">课程结束周</label>
                                       <div class="col-sm-10">
-                                          <input type="Date" class="form-control" name="birthday" value="<%=t.getBirthday() %>">
+                                          <input type="text" class="form-control" name="endweek" id="endweek" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label class="col-sm-2 control-label">学历</label>
+                                      <label class="col-sm-2 control-label">课程星期</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="education" value="<%=t.getEducation() %>">
+                                          <input type="text" class="form-control" id="xinqi" name="xinqi" value="">
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                      <label class="col-sm-2 control-label">职称</label>
+                                      <label class="col-sm-2 control-label">学期开始</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="title" value="<%=t.getTitle() %>">
+                                      <select id="term_start" name="term_start" class="form-control">
+										        <option selected>Choose...</option>
+										        <option>...</option>
+										      </select> 
                                       </div>
                                   </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-2 control-label">取得资格时间</label>
-                                      <div class="col-sm-10">
-                                          <input type="Date" class="form-control" name="quatime" value="<%=t.getQuatime() %>">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-2 control-label">毕业学校</label>
-                                      <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="graschool" value="<%=t.getGraschool() %>">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-2 control-label">毕业时间</label>
-                                      <div class="col-sm-10">
-                                          <input type="Date" class="form-control" name="gratime" value="<%=t.getGratime() %>">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-2 control-label">从事专业</label>
-                                      <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="major" value="<%=t.getMajor() %>">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-2 control-label">工作时长</label>
-                                      <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="workingtime" value="<%=t.getWorkingtime() %>">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="col-sm-2 control-label">现从事专业</label>
-                                      <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="currentmajor" value="<%=t.getCurrentmajor() %>">
-                                      </div>
-                                  </div>
+                                   
                                   <hr class="mb-4">
                                    <div class="form-group">
                                           <div class="col-lg-offset-2 col-lg-10">
@@ -178,9 +133,41 @@ Teacher t=(Teacher)request.getAttribute("teacher");
     <script src="<%=request.getContextPath() %>/bootstrap/js/scripts.js"></script> 
     <script type="text/javascript">
     $(function(){
+    	//获取所有教师信息
+    	$.getJSON("<%=request.getContextPath() %>/AdminGetAllTeacher",function(data){
+    		console.log("教师"+data);
+    		$("#teacher").html("");
+    		for(var i=0;i<data.length;i++){
+    			$("#teacher").append("<option value="+data[i].id+">"+data[i].id+":"+data[i].name+"</option>");
+    		}
+    		
+    	})
+    	//获取所有学期信息
+    	$.getJSON("<%=request.getContextPath() %>/AdminGetAllTeacher",function(data){
+    		console.log("教师"+data);
+    		$("#teacher").html("");
+    		for(var i=0;i<data.length;i++){
+    			$("#teacher").append("<option value="+data[i].id+">"+data[i].id+":"+data[i].name+"</option>");
+    		}
+    		
+    	})
+    	$.getJSON("<%=request.getContextPath() %>/adminCourseUpdate?course_id=<%=request.getParameter("course_id") %>",function(data){
+    		console.log(data);
+    		//给文本框传值
+    		$("#name").val(data.course_name);
+    		$("#class").val(data.course_class);
+    		$("#hour").val(data.course_hours);
+    		$("#peoplenum").val(data.couser_peoplenum);
+    		$("#place").val(data.course_place);
+    		$("#teacher option[value="+data.teacher_id+"]").attr("selected",true);
+    		$("#startweek").val(data.start_courseweek);
+    		$("#endweek").val(data.end_courseweek);
+    		$("#xinqi").val(data.week);
+    		$("#term_start").append("<option value="+data.teacher_id+">"+data.term_start+"</option>");
+    	})
     	$("#hh").click(function(){
     		var tt=$("#register_form").serialize();
-    		$.post("<%=request.getContextPath() %>/DoTeacherUpdateServlet",tt,function(data){
+    		$.post("<%=request.getContextPath() %>/",tt,function(data){
     			
     		})
     	})

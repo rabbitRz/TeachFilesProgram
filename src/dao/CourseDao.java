@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import bean.course;
+import servlet.UpdatePermissionServlet;
 
 public interface CourseDao {
 	//根据teacher id查看该老师所带所有班级
@@ -15,4 +16,10 @@ public interface CourseDao {
 	public List<course> FindByClass_Week(String teacher_id,String claString,String weekString); 
 	//查看其全部课程信息
 	public List<course> getAllCourse();
+	//根据课程id查看课程信息
+	public course getCourseById(String course_id);
+	//根据课程id进行修改信息
+	public boolean UpdateCourseById(String course_id);
+	//根据课程id删除课程信息
+	public boolean deleteCourse(String id);
 }
