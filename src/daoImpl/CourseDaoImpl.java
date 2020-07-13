@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.lookup.VariableBinding;
+
 import Utils.DBUtils;
+import bean.UpdateInfo;
 import bean.course;
 import dao.CourseDao;
 
@@ -208,15 +211,146 @@ public class CourseDaoImpl implements CourseDao {
 			return c;
 		}
 		//根据课程id进行修改信息
-		public boolean UpdateCourseById(String course_id) {
+		public boolean UpdateCourseById(String course_id,String name,String course_class,String hours,String people_num,String place,String teacher_id,String startweek,String endweek,String xinqi,String term_start) {
 			// TODO Auto-generated method stub
+			Connection conn=DBUtils.getConnection();
+			String sql="UPDATE course SET course_class='"+course_class+"',course_hours="+hours+",course_name='"+name+"',"
+					+ "course_peoplenum="+people_num+",course_place='"+place+"',start_courseweek='"+startweek+"'\r\n" + 
+					",end_courseweek='"+endweek+"',`week`='"+xinqi+"',teacher_id="+teacher_id+",term_start='"+
+					term_start+"',course_week='"+startweek
+					+"-"+endweek+"' WHERE course_id="+course_id;
+			System.out.println(sql);
+			PreparedStatement st=null;
+			boolean flag=false;
+			List<String> list=new ArrayList<String>();
+			try {
+				st=conn.prepareStatement(sql);
+				int t=st.executeUpdate();
+				if(t==1) {
+					flag=true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(null, st, conn);
+			}
 			
-			return false;
+			return flag;
 		}
 		//根据课程id删除课程信息
 		public boolean deleteCourse(String id) {
 			// TODO Auto-generated method stub
 			return false;
+		}
+		//查看hoilday表的全部信息
+		public List<String> getAllTerm() {
+		// TODO Auto-generated method stub
+			Connection conn=DBUtils.getConnection();
+			String sql="select * from holiday where  holiday.`desc`='开学'";
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			List<String> list=new ArrayList<String>();
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				if(rs.next()) {
+					String str=new String();
+					str=rs.getString("date");
+					list.add(str);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(rs, st, conn);
+			}
+			
+			return list;
+		}
+		//查看当天某一个时间点该老师是否有课
+		public UpdateInfo GetTrDay(String teacher_id, String week, String hours, String start, String end,String term) {
+			// TODO Auto-generated method stub
+			Connection conn=DBUtils.getConnection();
+			String sql="select max(end_courseweek) end_week,MIN(START_courseweek) start_week from course "
+					+ "where teacher_id="+teacher_id+" and week='"+week+"' and course_hours="+hours+" and term_start='"+term+"' "
+							+ "GROUP BY teacher_id";
+			System.out.println("老师"+sql);
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			String str="";
+			UpdateInfo oInfo=new UpdateInfo();
+			boolean flag=true;
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				if(rs.next()) {
+					str="教师编号为"+teacher_id+"在"+term+"学期第"+rs.getInt("start_week")+"周到第"+rs.getInt("end_week")+"周"+week+"有课\n";
+					if(Integer.parseInt(start)>Integer.parseInt(end)||Integer.parseInt(end)>=rs.getInt("start_week")&&Integer.parseInt(end)<=rs.getInt("end_week")) {
+						flag=false;
+					}
+					if(Integer.parseInt(start)>Integer.parseInt(end)||Integer.parseInt(start)>=rs.getInt("start_week")&&Integer.parseInt(start)<=rs.getInt("end_week")) {
+						flag=false;
+					}
+					if(Integer.parseInt(start)>Integer.parseInt(end)||Integer.parseInt(start)<rs.getInt("start_week")&&Integer.parseInt(end)>rs.getInt("end_week")) {
+						flag=false;
+					}
+					//System.out.println("flag"+flag);
+				}
+				oInfo.setInfo(str);
+				oInfo.setRes(flag);
+				//System.out.println(flag);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(rs, st, conn);
+			}
+			
+			return oInfo;
+		}
+		//查看当前教室是否被占用
+		public UpdateInfo getDayClass(String place, String week, String hours, String start, String end,String term) {
+			// TODO Auto-generated method stub
+			Connection conn=DBUtils.getConnection();
+			String sql="select max(end_courseweek) end_week,MIN(START_courseweek) start_week from course "
+					+ "where course_place='"+place+"' and week='"+week+"' and course_hours="+hours+" and term_start='"+term+"' "
+							+ "GROUP BY course_place";
+			System.out.println("教室"+sql);
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			String str="";
+			UpdateInfo oInfo=new UpdateInfo();
+			boolean flag=true;
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				if(rs.next()) {
+					str="教室"+place+"在"+term+"学期第"+rs.getInt("start_week")+"周到第"+rs.getInt("end_week")+"周"+week+"被占用\n";
+					if(Integer.parseInt(start)>Integer.parseInt(end)||Integer.parseInt(end)>=rs.getInt("start_week")&&Integer.parseInt(end)<=rs.getInt("end_week")) {
+						flag=false;
+						System.out.println(1);
+					}
+					if(Integer.parseInt(start)>Integer.parseInt(end)||Integer.parseInt(start)>=rs.getInt("start_week")&&Integer.parseInt(start)<=rs.getInt("end_week")) {
+						flag=false;
+						System.out.println(2);
+					}
+					if(Integer.parseInt(start)>Integer.parseInt(end)||Integer.parseInt(start)<rs.getInt("start_week")&&Integer.parseInt(end)>rs.getInt("end_week")) {
+						flag=false;
+						System.out.println(3);
+					}
+				}
+				oInfo.setInfo(str);
+				oInfo.setRes(flag);
+				System.out.println(flag);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(rs, st, conn);
+			}
+			//System.out.println(oInfo.getInfo());
+			return oInfo;
 		}
 		public static void main(String[] args) {
 			CourseDaoImpl daoImpl=new CourseDaoImpl();

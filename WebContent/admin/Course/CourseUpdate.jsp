@@ -54,9 +54,16 @@
                                   <div class="form-group">
                                       <label for="username" class="col-sm-2 control-label">课程节数<span class="required">*</span></label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" id="hour" name="hour" value="">
+                                   
+                                          <select id="hour" name="hour" class="form-control">
+										        <option value="1">1</option>
+										        <option value="2">2</option>
+										         <option value="3">3</option>
+										        <option value="4">4</option>
+										      </select> 
                                       </div>
-                                  </div>
+                                      </div>
+                                 
                                   <div class="form-group">
                                       <label for="password" class="col-sm-2 control-label">课程容量<span class="required">*</span></label>
                                       <div class="col-sm-10">
@@ -82,19 +89,71 @@
                                   <div class="form-group">
                                       <label class="col-sm-2 control-label">课程开始周</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="startweek" id="startweek" value="">
+                                          <select name="startweek" id="startweek" class="form-control">
+										        <option value="1">1</option>
+										        <option value="2">2</option>
+										         <option value="3">3</option>
+										        <option value="4">4</option>
+										        <option value="5">5</option>
+										        <option value="6">6</option>
+										         <option value="7">7</option>
+										        <option value="8">8</option>
+										        <option value="9">9</option>
+										        <option value="10">10</option>
+										         <option value="11">11</option>
+										        <option value="12">12</option>
+										        <option value="13">13</option>
+										        <option value="14">14</option>
+										         <option value="15">15</option>
+										        <option value="16">16</option>
+										        <option value="17">17</option>
+										        <option value="18">18</option>
+										         <option value="19">19</option>
+										        <option value="20">20</option>
+										      </select> 
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="col-sm-2 control-label">课程结束周</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" name="endweek" id="endweek" value="">
+                                  
+                                          <select name="endweek" id="endweek" class="form-control">
+										        <option value="1">1</option>
+										        <option value="2">2</option>
+										         <option value="3">3</option>
+										        <option value="4">4</option>
+										        <option value="5">5</option>
+										        <option value="6">6</option>
+										         <option value="7">7</option>
+										        <option value="8">8</option>
+										        <option value="9">9</option>
+										        <option value="10">10</option>
+										         <option value="11">11</option>
+										        <option value="12">12</option>
+										        <option value="13">13</option>
+										        <option value="14">14</option>
+										         <option value="15">15</option>
+										        <option value="16">16</option>
+										        <option value="17">17</option>
+										        <option value="18">18</option>
+										         <option value="19">19</option>
+										        <option value="20">20</option>
+										      </select> 
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="col-sm-2 control-label">课程星期</label>
                                       <div class="col-sm-10">
-                                          <input type="text" class="form-control" id="xinqi" name="xinqi" value="">
+                                          <select id="xinqi" name="xinqi" class="form-control">
+										        <option value="星期一">星期一</option>
+										        <option value="星期二">星期二</option>
+										         <option value="星期三">星期三</option>
+										        <option value="星期四">星期四</option>
+										        <option value="星期五">星期五</option>
+										        <option value="星期六">星期六</option>
+										         <option value="星期日">星期日</option>
+										        
+										      </select> 
                                       </div>
                                   </div>
                                   <div class="form-group">
@@ -110,7 +169,7 @@
                                   <hr class="mb-4">
                                    <div class="form-group">
                                           <div class="col-lg-offset-2 col-lg-10">
-                                              <button class="btn btn-primary" id="hh" type="submit">Save</button>
+                                              <button class="btn btn-primary" id="hh" type="button">Save</button>
                                               <button class="btn btn-default" type="reset">Cancel</button>
                                           </div>
                                      </div>
@@ -135,7 +194,7 @@
     $(function(){
     	//获取所有教师信息
     	$.getJSON("<%=request.getContextPath() %>/AdminGetAllTeacher",function(data){
-    		console.log("教师"+data);
+    		//console.log("教师"+data);
     		$("#teacher").html("");
     		for(var i=0;i<data.length;i++){
     			$("#teacher").append("<option value="+data[i].id+">"+data[i].id+":"+data[i].name+"</option>");
@@ -143,11 +202,11 @@
     		
     	})
     	//获取所有学期信息
-    	$.getJSON("<%=request.getContextPath() %>/AdminGetAllTeacher",function(data){
-    		console.log("教师"+data);
-    		$("#teacher").html("");
+    	$.getJSON("<%=request.getContextPath() %>/adminGetAllTerm",function(data){
+    		console.log("学期"+data);
+    		$("#term_start").html("");
     		for(var i=0;i<data.length;i++){
-    			$("#teacher").append("<option value="+data[i].id+">"+data[i].id+":"+data[i].name+"</option>");
+    			$("#term_start").append("<option value="+data[i]+">"+data[i]+"</option>");
     		}
     		
     	})
@@ -156,19 +215,20 @@
     		//给文本框传值
     		$("#name").val(data.course_name);
     		$("#class").val(data.course_class);
-    		$("#hour").val(data.course_hours);
+    		$("#hour option[value="+data.course_hours+"]").attr("selected",true);
     		$("#peoplenum").val(data.couser_peoplenum);
     		$("#place").val(data.course_place);
     		$("#teacher option[value="+data.teacher_id+"]").attr("selected",true);
-    		$("#startweek").val(data.start_courseweek);
-    		$("#endweek").val(data.end_courseweek);
-    		$("#xinqi").val(data.week);
-    		$("#term_start").append("<option value="+data.teacher_id+">"+data.term_start+"</option>");
+    		$("#startweek option[value="+data.start_courseweek+"]").attr("selected",true);
+    		$("#endweek option[value="+data.end_courseweek+"]").attr("selected",true);
+    		$("#xinqi option[value="+data.week+"]").attr("selected",true);
+    		$("#term_start option[value="+data.term_start+"]").attr("selected",true);
     	})
     	$("#hh").click(function(){
     		var tt=$("#register_form").serialize();
-    		$.post("<%=request.getContextPath() %>/",tt,function(data){
-    			
+    		$.getJSON("<%=request.getContextPath() %>/AdminUpdateCourseInfo?course_id=<%=request.getParameter("course_id")%>",tt,function(data){
+    			console.log(data);
+    			alert(data.info);
     		})
     	})
     })

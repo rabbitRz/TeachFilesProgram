@@ -338,4 +338,14 @@
     <servlet-name>AdminGetAllTermServlet</servlet-name>
     <url-pattern>/AdminGetAllTermServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminUpdateCourseInfoServlet</display-name>
+    <servlet-name>AdminUpdateCourseInfoServlet</servlet-name>
+    <servlet-class>servlet.AdminUpdateCourseInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminUpdateCourseInfoServlet</servlet-name>
+    <url-pattern>/AdminUpdateCourseInfoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -41,10 +41,12 @@ public class AdminGetAllTermServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json;charest=UTF-8");
 		CourseDaoImpl daoImpl=new CourseDaoImpl();
-		List<course> list=new ArrayList<course>();
-		list=daoImpl.getAllCourse();
+		List<String> list=new ArrayList<String>();
+		list=daoImpl.getAllTerm();
+		System.out.println(list);
 		ObjectMapper mapper=new ObjectMapper();
 		String data=mapper.writeValueAsString(list);
+		System.out.println(data);
 		PrintWriter pWriter=response.getWriter();
 		pWriter.println(data);
 		pWriter.flush();
