@@ -288,4 +288,34 @@
     <servlet-name>DeletAllTipServlet</servlet-name>
     <url-pattern>/DeletAllTipServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminGetPaperServlet</display-name>
+    <servlet-name>AdminGetPaperServlet</servlet-name>
+    <servlet-class>servlet.AdminGetPaperServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminGetPaperServlet</servlet-name>
+    <url-pattern>/AdminGetPaperServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminGetAllCourseServlet</display-name>
+    <servlet-name>AdminGetAllCourseServlet</servlet-name>
+    <servlet-class>servlet.AdminGetAllCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminGetAllCourseServlet</servlet-name>
+    <url-pattern>/AdminGetAllCourseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminUpdateHrefServlet</display-name>
+    <servlet-name>AdminUpdateHrefServlet</servlet-name>
+    <servlet-class>servlet.AdminUpdateHrefServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminUpdateHrefServlet</servlet-name>
+    <url-pattern>/AdminUpdateHrefServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

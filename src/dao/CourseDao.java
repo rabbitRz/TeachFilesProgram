@@ -13,5 +13,6 @@ public interface CourseDao {
 	public List<course> FindCouserBuTrId(String teacher_id); 
 	//根据教师所带班级以及周数查找课程表
 	public List<course> FindByClass_Week(String teacher_id,String claString,String weekString); 
-	
+	//查看其全部课程信息
+	public List<course> getAllCourse();
 }

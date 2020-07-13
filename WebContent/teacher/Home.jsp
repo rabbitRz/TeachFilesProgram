@@ -21,7 +21,7 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="<%=request.getContextPath()%>/img/lan2.jpg" class="d-block w-100" alt="Responsive image">
+      <img src="<%=request.getContextPath()%>/img/lan1.jpg" class="d-block w-100" alt="Responsive image">
     </div>
     <div class="carousel-item">
       <img src="<%=request.getContextPath()%>/img/lan1.jpg" class="d-block w-100" alt="...">
