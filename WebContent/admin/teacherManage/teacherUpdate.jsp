@@ -1,3 +1,4 @@
+<%@page import="bean.User"%>
 <%@page import="bean.Teacher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,11 +15,32 @@
 <link href="<%=request.getContextPath() %>/bootstrap/css/style-responsive.css" rel="stylesheet" />
 </head>
 <body>
+<section id="container" class="">
+  <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+            </div>
 
-  
+            <!--logo start-->
+            <a href="<%=request.getContextPath()%>/teacher/index.jsp" class="logo">教师业务档案 <span class="lite">管理系统</span></a>
+            <!--logo end-->
+
+            <div class="nav search-row" id="top_menu">
+                <!--  search form start -->
+                <ul class="nav top-menu">                    
+                    <li>
+                        <form class="navbar-form">
+                            <input class="form-control" placeholder="Search" type="text">
+                        </form>
+                    </li>                    
+                </ul>
+                <!--  search form end -->                
+            </div>
+
+      </header>      
+      <!--header end-->
 
       <!--main content start-->
-      <section id="main-content">
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
@@ -37,10 +59,18 @@
                              修改教师信息
                           </header>
                           <div class="panel-body">
-                              <form class="form-horizontal " method="get">
+                          <form class="form-validate form-horizontal " id="register_form" method="get" action="<%=request.getContextPath() %>/DoTeacherUpdateServlet">
+                          <div class="form">
+                              
 <% 
 Teacher t=(Teacher)request.getAttribute("teacher"); 
 %>
+								<div class="form-group">
+                                     <label class="col-sm-2 control-label">教师id</label>
+                                     <div class="col-sm-10">
+                                          <input type="text" class="form-control" name="id" readOnly="true" value="<%=t.getId() %>">
+                                      </div>
+                                  </div>
                                   <div class="form-group">
                                       <label class="col-sm-2 control-label">教师姓名</label>
                                       <div class="col-sm-10">
@@ -48,8 +78,26 @@ Teacher t=(Teacher)request.getAttribute("teacher");
                                       </div>
                                   </div>
                                   <div class="form-group">
-                                     <label class="control-label col-lg-2" for="inputSuccess">性别</label>
-                                     <div class="col-lg-10">
+                                      <label for="username" class="col-sm-2 control-label">用户名<span class="required">*</span></label>
+                                      <div class="col-sm-10">
+                                          <input type="text" class="form-control" id="username" name="username" value="<%=t.getUser().getUsername() %>">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="password" class="col-sm-2 control-label">密码<span class="required">*</span></label>
+                                      <div class="col-sm-10">
+                                          <input type="password" class="form-control" id="password" name="password" value="<%=t.getUser().getPassword() %>">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="confirm_password" class="col-sm-2 control-label">确认密码<span class="required">*</span></label>
+                                      <div class="col-sm-10">
+                                          <input type="password" class="form-control" id="confirm_password" name="confirm_password" value="<%=t.getUser().getPassword() %>">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                     <label class="col-sm-2 control-label" for="inputSuccess">性别</label>
+                                     <div class="col-sm-10">
                                           <div class="form-check">
                                               <input type="radio" name="sex" id="sex1" value="男" <%=t.getSex().equals("男")?"checked":"" %>>
 											  <label class="form-check-label" for="sex1">
@@ -57,7 +105,7 @@ Teacher t=(Teacher)request.getAttribute("teacher");
                                               </label>
                                           </div>
                                           <div class="form-check">
-                                                  <input type="radio" name="sex" id="sex2" value="女" <%=t.getSex().equals("男")?"checked":"" %>>
+                                                  <input type="radio" name="sex" id="sex2" value="女" <%=t.getSex().equals("女")?"checked":"" %>>
                                                   <label class="form-check-label" for="sex21">
                                                  女
                                               </label>
@@ -127,14 +175,15 @@ Teacher t=(Teacher)request.getAttribute("teacher");
                                       </div>
                                   </div>
                                   <hr class="mb-4">
-                                      <div align="left" style="float:left">
-        								<button class="btn btn-primary" type="submit" style="width:500px;">提交</button>
-    								  </div>
-    								  <div align="right">
-        								<button class="btn btn-info" type="reset" style="width:500px;">取消</button>
-    								  </div>
-
-                              </form>
+                                   <div class="form-group">
+                                          <div class="col-lg-offset-2 col-lg-10">
+                                              <button class="btn btn-primary" id="hh" type="submit">Save</button>
+                                              <button class="btn btn-default" type="reset">Cancel</button>
+                                          </div>
+                                     </div>
+                          
+                          </div>
+                          </form>
                           </div>
                       </section>                  
                   </div>
@@ -142,20 +191,22 @@ Teacher t=(Teacher)request.getAttribute("teacher");
           </section>
       </section>
       <!--main content end-->
-
-	<script src="<%=request.getContextPath() %>/bootstrap/js/jquery.js"></script>
+    <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.js"></script>
     <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.scrollTo.min.js"></script>
     <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath() %>/bootstrap/js/ga.js"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap-switch.js"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.tagsinput.js"></script>   
-    <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.hotkeys.js"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap-wysiwyg.js"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap-wysiwyg-custom.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath() %>/bootstrap/assets/ckeditor/ckeditor.js"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/form-component.js"></script>
-    <script src="<%=request.getContextPath() %>/bootstrap/js/scripts.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath() %>/bootstrap/js/jquery.validate.min.js"></script>
+    <script src="<%=request.getContextPath() %>/bootstrap/js/form-validation-script.js"></script>
+    <script src="<%=request.getContextPath() %>/bootstrap/js/scripts.js"></script> 
+    <script type="text/javascript">
+    $(function(){
+    	$("#hh").click(function(){
+    		var tt=$("#register_form").serialize();
+    		$.post("<%=request.getContextPath() %>/DoTeacherUpdateServlet",tt,function(data){
+    			
+    		})
+    	})
+    })
+    </script>
 </body>
 </html>

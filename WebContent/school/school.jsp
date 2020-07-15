@@ -9,7 +9,38 @@ pageEncoding="UTF-8"%>
 <title>校园</title>
 </head>
 <body>
+<!-- 导航栏 -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+<div class="container">
+  <a class="navbar-brand" href="#"><img src="img/icon.png" alt="" style="width:40px; height: 50px;"></a>
+    <a class="navbar-brand" href="#">教师业务档案管理系统</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link"  href="teacher/index.jsp" target="showframe">首页 </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#" target="showframe">校园 <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="login.html" target="showframe">课程表</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="login.html" target="showframe">科研</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="login.html" target="showframe">审核</a>
+      </li>
+    </ul>
+    </div>
+   <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="login()">Login</button>
+  </div>
+  </nav>
   <h4 style="position:relative;top:140px;left:165px;display:inline; font-family:STHupo;font-color:#191970;" >**实时新闻**</h4>
     <h4 style="position:relative;top:140px;left:760px;display:inline; font-family:STHupo;font-color:#191970;" >**开放论文**</h4>
   
@@ -61,7 +92,7 @@ pageEncoding="UTF-8"%>
         <th style="vertical-align:middle;text-align:center;font-size:18px;">期刊级别</th>
         <th style="vertical-align:middle;text-align:center;font-size:18px;">索引情况</th>
         <th style="vertical-align:middle;text-align:center;font-size:18px;">排名</th>
-        <th style="vertical-align:middle;text-align:center;font-size:18px;">作者</th>
+      
       
     </tr>
 
@@ -81,7 +112,7 @@ pageEncoding="UTF-8"%>
          <td width="10%" style="vertical-align:middle;text-align:center;"><%=paper.get(i).getJournal_level() %></td> 
          <td width="10%" style="vertical-align:middle;text-align:center;"><%=paper.get(i).getPaper_index() %></td> 
          <td width="7%" style="vertical-align:middle;text-align:center;"><%=paper.get(i).getPaper_ranking() %></td> 
-         <td width="15%" style="vertical-align:middle;text-align:center;"><%=paper.get(i).getTeachername() %></td> 
+      
    
        </tr>
        

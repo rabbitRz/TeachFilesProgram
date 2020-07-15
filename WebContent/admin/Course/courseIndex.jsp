@@ -22,16 +22,13 @@
 <body>
   <section id="container" class="">
       
-      
-      <!--main content start-->
-      <section id="main-content">
           <section class="wrapper">            
               <!--overview start-->
 			  <div class="row">
 				<div class="col-lg-12">
 					<h3 class="page-header"><i class="fa fa-th-list"></i> 显示课程信息</h3>
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="<%=request.getContextPath() %>/admin/index.jsp">Home</a></li>
+						<li><i class="fa fa-home"></i><a href="<%=request.getContextPath() %>/admin/Home.jsp">Home</a></li>
 						<li><i class="icon_genius"></i>课程信息管理</li>
 						<li><i class="fa fa-th-list"></i>显示课程信息</li>				  	
 					</ol>
@@ -80,7 +77,6 @@
 
           </section>
       </section>
-  </section>
 <script src="<%=request.getContextPath() %>/bootstrap/js/jquery-3.4.1.min.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.js"></script>

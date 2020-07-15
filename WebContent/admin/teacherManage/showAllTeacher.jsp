@@ -42,130 +42,18 @@
                 <!--  search form end -->                
             </div>
 
-            <div class="top-nav notification-row">                
-                <!-- notificatoin dropdown start-->
-                <ul class="nav pull-right top-menu">           
-                    <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                               <img alt="" src="<%=request.getContextPath()%>/bootstrap/img/avatar1_small.jpeg">
-                            </span>
-                            <span class="username">Jenifer Smith</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <div class="log-arrow-up"></div>
-                            <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_chat_alt"></i> Chats</a>
-                            </li>
-                            <li>
-                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-                <!-- notificatoin dropdown end-->
-            </div>
       </header>      
       <!--header end-->
 
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu">                
-                  <li class="active">
-                      <a class="" href="<%=request.getContextPath() %>/admin/index.jsp">
-                          <i class="icon_house_alt"></i>
-                          <span>首页</span>
-                      </a>
-                  </li>
-				  <li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="icon_genius"></i>
-                          <span>教师信息管理</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <li><a class="" href="<%=request.getContextPath() %>/admin/teacherManage/showAllTeacher.jsp">显示老师信息</a></li>                          
-                          <li><a class="" href="form_validation.html">添加老师信息</a></li>
-                      </ul>
-                  </li>       
-                  <li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="icon_document_alt"></i>
-                          <span>论文信息管理</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <li><a class="" href="general.html">Elements</a></li>
-                          <li><a class="" href="buttons.html">Buttons</a></li>
-                          <li><a class="" href="grids.html">Grids</a></li>
-                      </ul>
-                  </li>
-                             
-                  <li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="icon_table"></i>
-                          <span>课程信息管理</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <li><a class="" href="basic_table.html">Basic Table</a></li>
-                      </ul>
-                  </li>
-                  
-                  <li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="icon_documents_alt"></i>
-                          <span>项目信息管理</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">                          
-                          <li><a class="" href="profile.html">Profile</a></li>
-                          <li><a class="" href="login.html"><span>Login Page</span></a></li>
-                          <li><a class="" href="blank.html">Blank Page</a></li>
-                          <li><a class="" href="404.html">404 Error</a></li>
-                      </ul>
-                  </li>
-                  
-                  <li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="icon_desktop"></i>
-                          <span>信息审核</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <li><a class="" href="basic_table.html">Basic Table</a></li>
-                      </ul>
-                  </li>
-                  
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-      
       <!--main content start-->
-      <section id="main-content">
+
           <section class="wrapper">            
               <!--overview start-->
 			  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-home"></i> 首页</h3>
+					<h3 class="page-header"><i class="fa fa-th-list"></i> 显示教师信息</h3>
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="<%=request.getContextPath() %>/admin/index.jsp">Home</a></li>
+						<li><i class="fa fa-home"></i><a href="<%=request.getContextPath() %>/admin/Home.jsp">Home</a></li>
 						<li><i class="icon_genius"></i>教师信息管理</li>
 						<li><i class="fa fa-th-list"></i>显示教师信息</li>				  	
 					</ol>
@@ -175,12 +63,25 @@
 			<div class="row">
                   <div class="col-lg-12">
                       <section class="panel">
-                          <header class="panel-heading">
-                              显示全部教师信息表
-                          </header>
-                          
-                          <table class="table table-striped table-advance table-hover">
-                           <tbody>
+                          <!-- <header class="panel-heading">
+                              
+                          </header> -->
+                           <form action="<%=request.getContextPath()%>/FindByTeacherServlet" method='post'>
+                          选择搜索方式
+                           	    <select class="btn border-secondary dropdown-toggle" name="select" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           	    <option class="dropdown-menu" aria-labelledby="dropdownMenuButton">==请选择==</option>
+                           	    <option class="dropdown-item" value="1">教师id</option>
+                           	    <option class="dropdown-item" value="2">职称</option>
+                           	    <option class="dropdown-item" value="3">性别</option>
+                           	    </select>
+                           	    请填写关键字
+								<input type="text" class="round-input" name="input" id="Input" size="12">
+                           	    <input class="btn btn-default btn-sm" name="button" type="submit"  value="立即搜索">
+                           	    </form>
+                          <form action="" method='get'>
+                          <table class="table table-striped table-advance table-hover" id="tables">
+                          <caption class="panel-heading"> 显示全部教师信息表</caption>
+                           <tbody>                          	  
                               <tr>
                                  <th><i class="icon_profile"></i> 姓名</th>
                                  
@@ -195,8 +96,9 @@
                                  <th><i class="icon_mail_alt"></i> 密码</th>
                                  <th><i class="icon_calendar"></i> 生日</th>                                
                                  <th><i class="icon_pin_alt"></i> 籍贯</th>
-                                 <th><i class="icon_pin_alt"></i> 毕业学校</th>
-                                 <th><i class="icon_pin_alt"></i> 现从事专业</th>
+                                 <th><i class=""></i> 毕业学校</th>
+                                 <th><i class=""></i> 职称</th>
+                                 <th><i class=""></i> 现从事专业</th>
                                  <th><i class="icon_cogs"></i> Action</th>
                                  
                               </tr>
@@ -213,17 +115,18 @@
                                  <td><%=teachers.get(i).getUser().getPassword() %></td>
                                  <td><%=teachers.get(i).getBirthday() %></td>                                 
                                  <td><%=teachers.get(i).getNativeplace() %></td>
-                                 <td><%=teachers.get(i).getGraschool() %></td>                                 
+                                 <td><%=teachers.get(i).getGraschool() %></td> 
+                                 <td><%=teachers.get(i).getTitle() %></td>                                 
                                  <td><%=teachers.get(i).getCurrentmajor() %></td>                             
                                  <td>
                                   <div class="btn-group">
-                                      <a class="btn btn-primary" href="TeacherUpdateServlet?id=<%=teachers.get(i).getId() %>">
+                                      <a class="btn btn-primary" href="<%=request.getContextPath() %>/TeacherUpdateServlet?id=<%=teachers.get(i).getId() %>">
                                       	<svg class="bi bi-question-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   										<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   										<path d="M5.25 6.033h1.32c0-.781.458-1.384 1.36-1.384.685 0 1.313.343 1.313 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.007.463h1.307v-.355c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.326 0-2.786.647-2.754 2.533zm1.562 5.516c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
 										</svg>
 									  </a>
-                                      <a class="btn btn-danger" href="TeacherUpdateServlet?id=<%=teachers.get(i).getId() %>"><i class="icon_close_alt2"></i></a>
+                                      <a class="btn btn-danger" href="<%=request.getContextPath() %>/TeacherDeleteServlet?id=<%=teachers.get(i).getId() %>"><i class="icon_close_alt2"></i></a>
                                   </div>
                                   </td> 
                                </tr> 
@@ -231,12 +134,31 @@
                              </tbody>                        
                            
                         </table>
+                        
+                        </form>
+
                       </section>
+                        <a id="dlink" style="display:none;"></a>
+						<input type="button" class="btn btn-success" onclick="tableToExcel('tables', 'name', 'myfile.xls')" value="Export to Excel">
+                        <script type="text/javascript">
+						var tableToExcel = (function () {
+						var uri = 'data:application/vnd.ms-excel;base64,',
+						template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+						base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) },
+						format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) };
+						return function (table, name, filename) {
+						if (!table.nodeType) table = document.getElementById(table)
+						var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+						document.getElementById("dlink").href = uri + base64(format(template, ctx));
+						document.getElementById("dlink").download = filename;
+						document.getElementById("dlink").click();
+						}
+						})()
+						</script>
                   </div>
               </div>
 
           </section>
-      </section>
   </section>
 
 <!-- javascripts -->

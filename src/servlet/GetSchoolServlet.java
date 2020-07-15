@@ -43,7 +43,7 @@ public class GetSchoolServlet extends HttpServlet {
 		request.setAttribute("school", school);	
 		
 		IPaper iPaper=new PaperImpl();
-		List<Paper> paper=iPaper.show();
+		List<Paper> paper=iPaper.showall();
 		System.out.println(paper);
 		request.setAttribute("paper", paper);	
 	

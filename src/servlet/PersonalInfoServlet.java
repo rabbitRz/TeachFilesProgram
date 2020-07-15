@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Application;
 import bean.Paper;
 import bean.Project;
 import bean.Teacher;
+import dao.IApplication;
 import dao.TeacherDao;
+import daoImpl.ApplicationImpl;
 import daoImpl.TeacherDaoImpl;
 
 /**
@@ -47,11 +50,16 @@ public class PersonalInfoServlet extends HttpServlet {
 		response.setContentType("text/html");
 		
 		TeacherDao teacherDao=new TeacherDaoImpl();
+		IApplication iApplication=new ApplicationImpl();
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		System.out.println("用户编号:"+user_id);
 		Teacher teacher=teacherDao.showPersonalInfo(user_id);
 		request.setAttribute("teacher", teacher);
-		
+		int teacher_id=teacher.getId();
+		List<Application> applications5=iApplication.findbytea_id(teacher_id);
+		List<Application> applications7=iApplication.findbyt_id(teacher_id);
+		request.setAttribute("applications7", applications7);
+		request.setAttribute("applications5", applications5);
 		System.out.println("老师的id："+teacher.getId());
 		List<Paper> papers=teacherDao.showPapers(teacher.getId());
 		request.setAttribute("papers", papers);

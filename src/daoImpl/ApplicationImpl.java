@@ -9,12 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.lookup.TagBits;
+
 
 import Utils.DBUtils;
 import bean.Application;
+
 import bean.Teacher;
-import bean.course;
+
 import dao.IApplication;
 
 public class ApplicationImpl implements IApplication {
@@ -24,7 +25,7 @@ public class ApplicationImpl implements IApplication {
 		//System.out.println(a);
 		boolean flag=false;
 		Connection conn=DBUtils.getConnection();
-		String sql="insert into application(name,sex,nativeplace,birthday,education,title,quatime,graschool,gratime,major,workingtime,currentmajor,status,teacher_id,paper_name,journal_name) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="insert into application(name,sex,nativeplace,birthday,education,title,quatime,graschool,gratime,major,workingtime,currentmajor,status,teacher_id,paper_name,journal_name,reason) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		PreparedStatement st=null;
 		int res=0;
@@ -45,7 +46,8 @@ public class ApplicationImpl implements IApplication {
 			st.setInt(13, 0);
 			st.setInt(14, a.getTeacher_id());
 			st.setString(15, a.getPaper_name());
-			st.setString(16, a.getJournal_name());			
+			st.setString(16, a.getJournal_name());	
+			st.setString(17, a.getReason());
 			res=st.executeUpdate();
 			
 			if(res==1)
@@ -75,7 +77,8 @@ public class ApplicationImpl implements IApplication {
 				a.setId(rs.getInt("id"));
 				a.setTeacher_id(rs.getInt("teacher_id"));
 				a.setName(rs.getString("name"));
-				a.setSex(rs.getString("nativeplace"));
+				a.setSex(rs.getString("sex"));
+				a.setNativeplace(rs.getString("nativeplace"));
 				a.setBirthday(rs.getDate("birthday"));
 				a.setEducation(rs.getString("education"));
 				a.setTitle(rs.getString("title"));
@@ -88,6 +91,7 @@ public class ApplicationImpl implements IApplication {
 				a.setStatus(rs.getInt("status"));
 				a.setPaper_name(rs.getString("paper_name"));
 				a.setJournal_name(rs.getString("journal_name"));
+				a.setReason(rs.getString("reason"));
 				list.add(a);
 				
 		    }
@@ -99,15 +103,42 @@ public class ApplicationImpl implements IApplication {
 		return list;
 	}
 
-	public static void main(String[] args) {
-		ApplicationImpl daoApplicationImpl=new ApplicationImpl();
-		List<Application> list=new ArrayList<Application>();
-		list=daoApplicationImpl.findbytid(1);
-	//	System.out.println(list.get(0).getTeacher_id());
-		Teacher teacher=new Teacher();
-		teacher=daoApplicationImpl.findbyid(1);
-		//System.out.println(teacher.getUser_id());
-		
+	public Application findbyida(int id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		String sql="select * from application where id= ?";
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		Application a=new Application();
+        try {
+        	st=conn.prepareStatement(sql);
+        	st.setInt(1, id);
+			rs=st.executeQuery();
+			while(rs.next()) {									
+				a.setId(rs.getInt("id"));
+				a.setTeacher_id(rs.getInt("teacher_id"));
+				a.setName(rs.getString("name"));
+				a.setSex(rs.getString("sex"));
+				a.setNativeplace(rs.getString("nativeplace"));
+				a.setBirthday(rs.getDate("birthday"));
+				a.setEducation(rs.getString("education"));
+				a.setTitle(rs.getString("title"));
+				a.setQuatime(rs.getDate("quatime"));
+				a.setGraschool(rs.getString("graschool"));
+				a.setGratime(rs.getDate("gratime"));
+				a.setMajor(rs.getString("major"));
+				a.setWorkingtime(rs.getString("workingtime"));
+				a.setCurrentmajor(rs.getString("currentmajor"));
+				a.setStatus(rs.getInt("status"));
+				a.setPaper_name(rs.getString("paper_name"));
+				a.setJournal_name(rs.getString("journal_name"));
+				a.setReason(rs.getString("reason"));
+		    }
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return a;
 	}
 
 	public boolean deletebytid(int id) throws RuntimeException {
@@ -175,5 +206,304 @@ public class ApplicationImpl implements IApplication {
 		}
 		return a;
 	}
+	public boolean updateapply(int id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+ 		String sql = "Update application set status=1 where id=?";
+ 		PreparedStatement st=null;
+ 		int rs=0;
+ 		boolean flag=false;
+ 		try {
+ 			st=conn.prepareStatement(sql);
+ 			st.setInt(1, id);
+ 			rs=st.executeUpdate();
+ 			if(rs==1)
+ 				flag=true;
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}finally {
+ 			DBUtils.close(null, st,conn);
+ 		}
+ 		return flag;
+	}
+	public boolean updatenoapply(int id,String reason) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+ 		String sql = "Update application set status=2,reason='"+reason+"' where id=?";
+ 		PreparedStatement st=null;
+ 		int rs=0;
+ 		boolean flag=false;
+ 		try {
+ 			st=conn.prepareStatement(sql);
+ 			st.setInt(1, id);
+ 			rs=st.executeUpdate();
+ 			if(rs==1)
+ 				flag=true;
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}finally {
+ 			DBUtils.close(null, st,conn);
+ 		}
+ 		return flag;
+	}
+	public boolean updatereaderapply(int id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+ 		String sql = "Update application set status=3 where id=?";
+ 		PreparedStatement st=null;
+ 		int rs=0;
+ 		boolean flag=false;
+ 		try {
+ 			st=conn.prepareStatement(sql);
+ 			st.setInt(1, id);
+ 			rs=st.executeUpdate();
+ 			if(rs==1)
+ 				flag=true;
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}finally {
+ 			DBUtils.close(null, st,conn);
+ 		}
+ 		return flag;
+	}
+
+
+	public static void main(String[] args) {
+		ApplicationImpl daoApplicationImpl=new ApplicationImpl();
+		//boolean flag=daoApplicationImpl.updateapply(5);
+		Application application=new Application();
+		//List<Application> list=new ArrayList<Application>();
+		//list=daoApplicationImpl.findbytid(1);
+	//	System.out.println(list.get(0).getTeacher_id());
+		//Teacher teacher=new Teacher();
+		//teacher=daoApplicationImpl.findbyid(1);
+		//System.out.println(teacher.getUser_id());
+		
+	}
+	public List<Application> findnoapply() throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		String sql="select * from application where status=0";
+		
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		List<Application> list=new ArrayList<Application>();
+		try {
+			st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while(rs.next()) {
+				Application a=new Application();
+				a.setId(rs.getInt("id"));
+				a.setName(rs.getString("name"));
+				a.setSex(rs.getString("sex"));
+				a.setNativeplace(rs.getString("nativeplace"));	
+				a.setBirthday(rs.getDate("birthday"));
+				a.setEducation(rs.getString("education"));
+				a.setTitle(rs.getString("title"));
+				a.setQuatime(rs.getDate("quatime"));
+				a.setGraschool(rs.getString("graschool"));
+				a.setGratime(rs.getDate("gratime"));
+				a.setMajor(rs.getString("major"));
+				a.setWorkingtime(rs.getString("workingtime"));
+				a.setCurrentmajor(rs.getString("currentmajor"));
+				a.setPaper_name(rs.getString("paper_name"));
+				a.setJournal_name(rs.getString("journal_name"));
+				a.setTeacher_id(rs.getInt("teacher_id"));
+				a.setReason(rs.getString("reason"));
+				//System.out.println(s.getArticlename());
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return list;
+	}
+
+	public boolean teacherUpdate(Teacher teacher,int teacher_id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		String sql = "Update teacher set" +
+					" name = '" + teacher.getName() + "', " +
+					" sex = '" + teacher.getSex() + "', " +
+					" nativeplace = '" + teacher.getNativeplace() + "', " +
+					" birthday = '" + teacher.getBirthday() + "', " +
+					" education = '" + teacher.getEducation() + "', " +
+					" title = '" + teacher.getTitle() + "', " +
+					" quatime = '" + teacher.getQuatime() + "', " +
+					" graschool = '" + teacher.getGraschool() + "', " +
+					" gratime = '" + teacher.getGratime() + "', " +
+					" major = '" + teacher.getMajor() + "' ," +
+					" workingtime = '" + teacher.getWorkingtime() + "', " +
+					" currentmajor = '" + teacher.getCurrentmajor() + "' " +
+					" where id="+teacher_id;				
+		//System.out.println(sql);
+	int i = 0;
+	try{	
+		st = conn.prepareStatement(sql);
+		i  = st.executeUpdate();
+		}catch(Exception e){
+		e.printStackTrace();
+		System.out.println("teacherUpdate(Application application)异常");
+		}finally{			
+			DBUtils.close(rs, st, conn);			
+		}
+	if(i==0){
+	return false;
+	}else{
+		return true;
+	}
+	}
+
+	public List<Application> findhistory() throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		String sql="select * from application where status=1 or status=2 or status=3";
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		List<Application> list=new ArrayList<Application>();
+        try {
+        	st=conn.prepareStatement(sql);
+			rs=st.executeQuery();
+			while(rs.next()) {			
+				Application a=new Application();
+				a.setId(rs.getInt("id"));
+				a.setTeacher_id(rs.getInt("teacher_id"));
+				a.setName(rs.getString("name"));
+				a.setSex(rs.getString("sex"));
+				a.setNativeplace(rs.getString("nativeplace"));
+				a.setBirthday(rs.getDate("birthday"));
+				a.setEducation(rs.getString("education"));
+				a.setTitle(rs.getString("title"));
+				a.setQuatime(rs.getDate("quatime"));
+				a.setGraschool(rs.getString("graschool"));
+				a.setGratime(rs.getDate("gratime"));
+				a.setMajor(rs.getString("major"));
+				a.setWorkingtime(rs.getString("workingtime"));
+				a.setCurrentmajor(rs.getString("currentmajor"));
+				a.setStatus(rs.getInt("status"));
+				a.setPaper_name(rs.getString("paper_name"));
+				a.setJournal_name(rs.getString("journal_name"));
+				a.setReason(rs.getString("reason"));
+				list.add(a);
+				
+		    }
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return list;
+	}
+
+	public List<Application> findbytea_id(int teacher_id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		String sql="select * from application where status=2 and teacher_id=?";
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		List<Application> list=new ArrayList<Application>();
+        try {
+        	st=conn.prepareStatement(sql);
+        	st.setInt(1, teacher_id);
+			rs=st.executeQuery();
+			while(rs.next()) {			
+				Application a=new Application();
+				a.setId(rs.getInt("id"));
+				a.setTeacher_id(rs.getInt("teacher_id"));
+				a.setName(rs.getString("name"));
+				a.setSex(rs.getString("sex"));
+				a.setNativeplace(rs.getString("nativeplace"));
+				a.setBirthday(rs.getDate("birthday"));
+				a.setEducation(rs.getString("education"));
+				a.setTitle(rs.getString("title"));
+				a.setQuatime(rs.getDate("quatime"));
+				a.setGraschool(rs.getString("graschool"));
+				a.setGratime(rs.getDate("gratime"));
+				a.setMajor(rs.getString("major"));
+				a.setWorkingtime(rs.getString("workingtime"));
+				a.setCurrentmajor(rs.getString("currentmajor"));
+				a.setStatus(rs.getInt("status"));
+				a.setPaper_name(rs.getString("paper_name"));
+				a.setJournal_name(rs.getString("journal_name"));
+				a.setReason(rs.getString("reason"));
+				list.add(a);
+				
+		    }
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return list;
+	}
+	public List<Application> findbyt_id(int teacher_id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		String sql="select * from application where status=0 and teacher_id=?";
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		List<Application> list=new ArrayList<Application>();
+        try {
+        	st=conn.prepareStatement(sql);
+        	st.setInt(1, teacher_id);
+			rs=st.executeQuery();
+			while(rs.next()) {			
+				Application a=new Application();
+				a.setId(rs.getInt("id"));
+				a.setTeacher_id(rs.getInt("teacher_id"));
+				a.setName(rs.getString("name"));
+				a.setSex(rs.getString("sex"));
+				a.setNativeplace(rs.getString("nativeplace"));
+				a.setBirthday(rs.getDate("birthday"));
+				a.setEducation(rs.getString("education"));
+				a.setTitle(rs.getString("title"));
+				a.setQuatime(rs.getDate("quatime"));
+				a.setGraschool(rs.getString("graschool"));
+				a.setGratime(rs.getDate("gratime"));
+				a.setMajor(rs.getString("major"));
+				a.setWorkingtime(rs.getString("workingtime"));
+				a.setCurrentmajor(rs.getString("currentmajor"));
+				a.setStatus(rs.getInt("status"));
+				a.setPaper_name(rs.getString("paper_name"));
+				a.setJournal_name(rs.getString("journal_name"));
+				a.setReason(rs.getString("reason"));
+				list.add(a);
+				
+		    }
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return list;
+	}
+	public Teacher findbyuser_id(int user_id) throws RuntimeException {
+		Connection conn=DBUtils.getConnection();
+		String sql="select * from teacher where user_id=?";
+		PreparedStatement st=null;
+		ResultSet rs=null;
+		Teacher teacher=new Teacher();
+        try {
+        	st=conn.prepareStatement(sql);
+        	st.setInt(1, user_id);
+			rs=st.executeQuery();
+			while(rs.next()) {			
+				teacher.setId(rs.getInt("id"));
+				
+		    }
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, st, conn);
+		}
+		return teacher;
+	}
+
 	
+
+	
+	
+
 }
+	
+

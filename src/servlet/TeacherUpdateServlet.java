@@ -43,10 +43,8 @@ public class TeacherUpdateServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json;charest=utf-8");
 		int id = Integer.parseInt(request.getParameter("id"));
-		System.out.println("id:"+id);
 		TeacherDao teacherDao=new TeacherDaoImpl();
 		Teacher teacher = teacherDao.showPersonById(id);	
-		System.out.println(teacher.getName());
 		request.setAttribute("teacher", teacher);	
 		request.getRequestDispatcher("admin/teacherManage/teacherUpdate.jsp").forward(request, response);
 	}

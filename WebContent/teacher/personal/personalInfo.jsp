@@ -1,6 +1,6 @@
 <%@page import="bean.Project"%>
 <%@page import="bean.Paper"%>
-<%@ page language="java"  import="java.util.*,bean.Teacher"
+<%@ page language="java"  import="java.util.*,bean.*"
 contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +16,34 @@ pageEncoding="UTF-8"%>
  <%
      	Teacher teacher=(Teacher)request.getAttribute("teacher");   		
      %>
-     <A href="GetApplicationServlet?teacher_id=<%=teacher.getId()%>"><button class="btn btn-primary btn-lg btn-block" type="button">查看未通过的申请</button></a>
+     <%
+   	List<Application> applications7=(List<Application>)request.getAttribute("applications7");   
+	if(applications7!=null&&applications7.size()>0){
+		
+%>
+<A href="GetApplicationServlet?teacher_id=<%=teacher.getId()%>"><button class="btn btn-primary btn-lg btn-block" type="button">查看未审核的申请</button></a>
+<%}%>
+  <%
+    List<Application> applications8=(List<Application>)request.getAttribute("applications7");   
+    if(applications8==null||applications8.size()>0){
+		
+%>
+<a></a>
+<%}%>  
+<%
+   	List<Application> applications5=(List<Application>)request.getAttribute("applications5");   
+	if(applications5!=null&&applications5.size()>0){
+		
+%>
+<A href="GetNoApplicationServlet?teacher_id=<%=teacher.getId()%>"><button class="btn btn-primary btn-lg btn-block" type="button" style="margin-top:30px;">您有未通过的申请</button></a>
+<%}%>
+<%
+    List<Application> applications6=(List<Application>)request.getAttribute("applications5");   
+    if(applications6==null||applications6.size()>0){
+		
+%>
+<a></a>
+<%}%>
 <form action="<%=request.getContextPath() %>/ApplicationServlet" method="post">
     <div class="container">
   <div class="py-2 text-center" id="teacher_img">
@@ -83,7 +110,7 @@ pageEncoding="UTF-8"%>
 <table class="table table-bordered table-hover definewidth m10" >
 	
      </table>
-     <div class="form-group row">
+    <div class="form-group row">
   
     <label class="col-sm-2 col-form-label">ID</label>
     <div class="col-sm-10">
@@ -95,7 +122,7 @@ pageEncoding="UTF-8"%>
   
     <label class="col-sm-2 col-form-label">姓名</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" name="name" placeholder="姓名" value="<%=teacher.getName() %>">
+      <input type="text" class="form-control" id="name" placeholder="姓名" name="name" value="<%=teacher.getName() %>">
     </div>
   </div>
 
@@ -136,10 +163,28 @@ pageEncoding="UTF-8"%>
       <input type="text" class="form-control" name="education" id="education" placeholder="学历" value="<%=teacher.getEducation() %>">
     </div>
   </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">职称</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="title" id="title" placeholder="职称" value="<%=teacher.getTitle() %>">
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">取得资格时间</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" name="quatime" id="quatime" placeholder="取得资格时间" value="<%=teacher.getQuatime() %>">
+    </div>
+  </div>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">毕业学校</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" name="graschool" id="graschool" placeholder="毕业学校" value="<%=teacher.getGraschool() %>">
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">毕业时间</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" name="gratime" id="gratime" placeholder="毕业时间" value="<%=teacher.getGratime() %>">
     </div>
   </div>
   <div class="form-group row">

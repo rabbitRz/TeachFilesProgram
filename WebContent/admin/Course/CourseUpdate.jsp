@@ -14,17 +14,12 @@
 <link href="<%=request.getContextPath() %>/bootstrap/css/style-responsive.css" rel="stylesheet" />
 </head>
 <body>
-
-  
-
-      <!--main content start-->
-      <section id="main-content">
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
 					<h3 class="page-header"><i class="fa fa-file-text-o"></i> 修改课程信息</h3>
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+						<li><i class="fa fa-home"></i><a href="<%=request.getContextPath() %>/admin/Home.jsp">Home</a></li>
 						<li><i class="icon_genius"></i>教师课程管理</li>
 						<li><i class="fa fa-file-text-o"></i>修改课程信息</li>
 					</ol>
@@ -181,7 +176,6 @@
                   </div>
               </div>             
           </section>
-      </section>
       <!--main content end-->
     <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.js"></script>
     <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>

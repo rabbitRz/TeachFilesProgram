@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Application;
-import bean.Teacher;
 import dao.IApplication;
 import daoImpl.ApplicationImpl;
-import daoImpl.TeacherDaoImpl;
 
 /**
  * Servlet implementation class GetApplicationServlet
@@ -32,14 +30,11 @@ public class GetApplicationServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		IApplication dao=new ApplicationImpl();
 		int teacher_id=Integer.parseInt(request.getParameter("teacher_id"));
-		TeacherDaoImpl teacherDaoImpl=new TeacherDaoImpl();
 		//System.out.println(teacher_id);
 		List<Application> applications=dao.findbytid(teacher_id);
-		Teacher teacher=teacherDaoImpl.showPersonById(teacher_id);
-		System.out.println(String.valueOf(teacher.getId()));
-	    request.setAttribute("teacher_id",request.getParameter("teacher_id"));
+		//System.out.println(applications);
+	
 		request.setAttribute("applications",applications);		
-			
 		request.getRequestDispatcher("application/application.jsp").forward(request, response);
 	}
 

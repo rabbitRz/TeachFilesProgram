@@ -19,109 +19,117 @@ import dao.TeacherDao;
 public class TeacherDaoImpl implements TeacherDao{
 	
 	//通过user_id显示个人信息
-	public Teacher showPersonalInfo(int user_id) {
-		Connection conn=DBUtils.getConnection();
-		String sql="select * from teacher where user_id="+user_id;
-		//System.out.println(sql);
-		PreparedStatement st=null;
-		ResultSet rs=null;
-		Teacher teacher=new Teacher();
-		try {
-			st=conn.prepareStatement(sql);
-			rs=st.executeQuery();
-			while(rs.next()) {
-				//Teacher teacher=new Teacher();
-				teacher.setUser_id(rs.getInt("user_id"));
-				teacher.setId(rs.getInt("id"));
-				teacher.setName(rs.getString("name"));
-				teacher.setSex(rs.getString("sex"));
-				teacher.setNativeplace(rs.getString("nativeplace"));
-				teacher.setBirthday(rs.getDate("birthday"));
-				teacher.setEducation(rs.getString("education"));
-				teacher.setTitle(rs.getString("title"));
-				teacher.setQuatime(rs.getDate("quatime"));
-				teacher.setGraschool(rs.getString("graschool"));
-				teacher.setMajor(rs.getString("major"));
-				teacher.setWorkingtime(rs.getString("workingtime"));
-				teacher.setCurrentmajor(rs.getString("currentmajor"));
-							
+		public Teacher showPersonalInfo(int user_id) {
+			Connection conn=DBUtils.getConnection();
+			String sql="select * from teacher where user_id="+user_id;
+			//System.out.println(sql);
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			Teacher teacher=new Teacher();
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				while(rs.next()) {
+					//Teacher teacher=new Teacher();
+					teacher.setUser_id(rs.getInt("user_id"));
+					teacher.setId(rs.getInt("id"));
+					teacher.setName(rs.getString("name"));
+					teacher.setSex(rs.getString("sex"));
+					teacher.setNativeplace(rs.getString("nativeplace"));
+					teacher.setBirthday(rs.getDate("birthday"));
+					teacher.setEducation(rs.getString("education"));
+					teacher.setTitle(rs.getString("title"));
+					teacher.setQuatime(rs.getDate("quatime"));
+					teacher.setGraschool(rs.getString("graschool"));
+					teacher.setGratime(rs.getDate("gratime"));
+					teacher.setMajor(rs.getString("major"));
+					teacher.setWorkingtime(rs.getString("workingtime"));
+					teacher.setCurrentmajor(rs.getString("currentmajor"));				
+								
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("showPersonalInfo(int user_id)运行出错!");
+			}finally {
+				DBUtils.close(rs, st, conn);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("showPersonalInfo(int user_id)运行出错!");
-		}finally {
-			DBUtils.close(rs, st, conn);
+			return teacher;
 		}
-		return teacher;
-	}
-	//通过教师id显示个人信息
-    public Teacher showPersonById(int id) {
-    	Connection conn=DBUtils.getConnection();
-		String sql="select * from teacher where id="+id;
-		//System.out.println(sql);
-		PreparedStatement st=null;
-		ResultSet rs=null;
-		Teacher teacher=new Teacher();
-		try {
-			st=conn.prepareStatement(sql);
-			rs=st.executeQuery();
-			while(rs.next()) {
-			//Teacher teacher=new Teacher();
-			teacher.setUser_id(rs.getInt("user_id"));
-			teacher.setId(rs.getInt("id"));
-			teacher.setName(rs.getString("name"));
-			teacher.setSex(rs.getString("sex"));
-			teacher.setNativeplace(rs.getString("nativeplace"));
-			teacher.setBirthday(rs.getDate("birthday"));
-			teacher.setEducation(rs.getString("education"));
-			teacher.setTitle(rs.getString("title"));
-			teacher.setQuatime(rs.getDate("quatime"));
-			teacher.setGraschool(rs.getString("graschool"));
-			teacher.setMajor(rs.getString("major"));
-			teacher.setWorkingtime(rs.getString("workingtime"));
-			teacher.setCurrentmajor(rs.getString("currentmajor"));					
+		//通过教师id显示个人信息
+		public Teacher showPersonById(int id) {
+			Connection conn=DBUtils.getConnection();
+			String sql="select t.*,u.* from teacher t,user u where u.user_id=t.user_id and t.id="+id;
+			//System.out.println(sql);
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			Teacher teacher=new Teacher();
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				while(rs.next()) {
+					//Teacher teacher=new Teacher();
+					teacher.setUser_id(rs.getInt("user_id"));
+					teacher.setId(rs.getInt("id"));
+					teacher.setName(rs.getString("name"));
+					teacher.setSex(rs.getString("sex"));
+					teacher.setNativeplace(rs.getString("nativeplace"));
+					teacher.setBirthday(rs.getDate("birthday"));
+					teacher.setEducation(rs.getString("education"));
+					teacher.setTitle(rs.getString("title"));
+					teacher.setQuatime(rs.getDate("quatime"));
+					teacher.setGraschool(rs.getString("graschool"));
+					teacher.setGratime(rs.getDate("gratime"));
+					teacher.setMajor(rs.getString("major"));
+					teacher.setWorkingtime(rs.getString("workingtime"));
+					teacher.setCurrentmajor(rs.getString("currentmajor"));
+					User user=new User();
+					user.setUsername(rs.getString("username"));
+					user.setPassword(rs.getString("password"));
+					teacher.setUser(user);
+								
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("showPersonalInfo(int user_id)运行出错!");
+			}finally {
+				DBUtils.close(rs, st, conn);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("showPersonalInfo(int user_id)运行出错!");
-		}finally {
-			DBUtils.close(rs, st, conn);
+			return teacher;
 		}
-		return teacher;
-	}
-	//通过id显示个人的论文信息
-	public List<Paper> showPapers(int id) {
-		Connection conn=DBUtils.getConnection();
-		String sql="select p.* from paper p where p.paper_id in (select paper_id FROM paperpeople where paperpeople.people1_id="+id+" or paperpeople.people2_id="+id+" or paperpeople.people3_id="+id+")";
-		System.out.println(sql);
-		PreparedStatement st=null;
-		ResultSet rs=null;
-		List<Paper> list=new ArrayList<Paper>();
-		try {
-			st=conn.prepareStatement(sql);
-			rs=st.executeQuery();
-			while(rs.next()) {
-				Paper paper=new Paper();
-				//PaperPeople paperPeople=new PaperPeople();
-				paper.setPaper_id(rs.getInt("paper_id"));
-				paper.setPaper_name(rs.getString("paper_name"));
-				paper.setJournal_level(rs.getString("journal_level"));
-				paper.setJournal_name(rs.getString("journal_name"));
-				System.out.println(paper.getPaper_name());
-				//str=rs.getString("course_class");
-				list.add(paper);  
+		//通过id显示个人的论文信息
+		public List<Paper> showPapers(int id) {
+			Connection conn=DBUtils.getConnection();
+			String sql="select p.* from paper p where p.paper_id in (select paper_id FROM paperpeople where paperpeople.people1_id="+id+" or paperpeople.people2_id="+id+" or paperpeople.people3_id="+id+")";
+			//System.out.println(sql);
+			PreparedStatement st=null;
+			ResultSet rs=null;
+			List<Paper> list=new ArrayList<Paper>();
+			try {
+				st=conn.prepareStatement(sql);
+				rs=st.executeQuery();
+				while(rs.next()) {
+					Paper paper=new Paper();
+					//PaperPeople paperPeople=new PaperPeople();
+					paper.setPaper_id(rs.getInt("paper_id"));
+					paper.setPaper_name(rs.getString("paper_name"));
+					paper.setJournal_level(rs.getString("journal_level"));
+					paper.setJournal_name(rs.getString("journal_name"));
+					System.out.println(paper.getPaper_name());
+					//str=rs.getString("course_class");
+					list.add(paper);  
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("showPapers(int id)运行出错!");
+			}finally {
+				DBUtils.close(rs, st, conn);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("showPapers(int id)运行出错!");
-		}finally {
-			DBUtils.close(rs, st, conn);
+			return list;
 		}
-		return list;
-	}
-	//通过id显示个人的项目信息
+		
+		//通过id显示个人的项目信息
 		public List<Project> showProjects(int id) {
 			Connection conn=DBUtils.getConnection();
 			String sql="select p.* from project p where p.pro_id in (select project_id from projectpeople pp where pp.leader_id="+id+" or pp.member1_id="+id+" or pp.member2_id="+id+" or pp.member3_id="+id+")";

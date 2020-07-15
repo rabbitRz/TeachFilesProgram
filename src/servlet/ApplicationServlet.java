@@ -33,7 +33,6 @@ public class ApplicationServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		String idString=request.getParameter("id1");
 		//System.out.println(idString);
@@ -44,10 +43,10 @@ public class ApplicationServlet extends HttpServlet {
 		String birth=request.getParameter("birthday");
 		System.out.println(birth);
 		String education=request.getParameter("education");
-		//String title=request.getParameter("title");
-		//String quat=request.getParameter("quatime");
+		String title=request.getParameter("title");
+		String quat=request.getParameter("quatime");
 		String graschool=request.getParameter("graschool");
-		//String grat=request.getParameter("gratime");
+		String grat=request.getParameter("gratime");
 		String major=request.getParameter("major");
 		String workingtime=request.getParameter("workingtime");
 		String currentmajor=request.getParameter("currentmajor");
@@ -78,10 +77,26 @@ public class ApplicationServlet extends HttpServlet {
 			e.printStackTrace();
 		}						
 		a.setEducation(education);
-		//a.setTitle(title);
+		a.setTitle(title);
+
+		try {
+			Date quatd = df.parse(quat);
+			java.sql.Date quatime = new java.sql.Date(quatd.getTime());
+			a.setQuatime(quatime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		a.setGraschool(graschool);
-		
+		try {
+			Date gratd = df.parse(grat);
+			java.sql.Date gratime = new java.sql.Date(gratd.getTime());
+			a.setGratime(gratime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		a.setMajor(major);
 		a.setWorkingtime(workingtime);
 		a.setCurrentmajor(currentmajor);
@@ -99,4 +114,3 @@ public class ApplicationServlet extends HttpServlet {
 	}
 
 }
-

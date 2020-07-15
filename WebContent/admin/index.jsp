@@ -41,7 +41,7 @@
             </div>
 
             <!--logo start-->
-            <a href="index.html" class="logo">教师业务档案 <span class="lite">管理系统</span></a>
+            <a href="<%=request.getContextPath()%>/teacher/index.jsp" class="logo">教师业务档案 <span class="lite">管理系统</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -68,25 +68,15 @@
         <%
    			User user=(User)request.getAttribute("user");   
 		%>
-                            <span class="username">Jenifer Smith</span>
+                            <span class="username"><%=user.getUsername() %></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
-                            <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
+                                <a href="<%=request.getContextPath()%>/PersonalInfoServlet?user_id=<%=user.getUser_id() %>"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_chat_alt"></i> Chats</a>
-                            </li>
-                            <li>
-                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+                                <a href="<%=request.getContextPath()%>/login.jsp"><i class="icon_key_alt"></i> Log Out</a>
                             </li>
                         </ul>
                     </li>
@@ -98,12 +88,12 @@
       <!--header end-->
 
       <!--sidebar start-->
-      <aside>
+      <aside width="20%" >
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                      <a class="" href="<%=request.getContextPath() %>/admin/NewFile.jsp">
+                      <a class="" href="<%=request.getContextPath()%>/admin/Home.jsp" target="showframe">
                           <i class="icon_house_alt"></i>
                           <span>首页</span>
                       </a>
@@ -115,8 +105,10 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="<%=request.getContextPath() %>/ShowAllTeacherServlet">显示老师信息</a></li>                          
-                          <li><a class="" href="form_validation.html">添加老师信息</a></li>
+                      	  <li><a class="" href="<%=request.getContextPath() %>/admin/teacherManage/createUser.jsp" target="showframe">创建账户</a></li>
+                      	  <li><a class="" href="<%=request.getContextPath() %>/ShowUIdServlet" target="showframe">添加老师信息</a></li>
+                          <li><a class="" href="<%=request.getContextPath() %>/ShowAllTeacherServlet" target="showframe">显示老师信息</a></li>                          
+                          
                       </ul>
                   </li>       
                   <li class="sub-menu">
@@ -126,9 +118,9 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="general.html">Elements</a></li>
-                          <li><a class="" href="buttons.html">Buttons</a></li>
-                          <li><a class="" href="grids.html">Grids</a></li>
+                          <li><a class="" href="<%=request.getContextPath() %>/AdminGetPaperServlet" target="showframe">显示论文信息</a></li>
+                         <li><a class="" href="<%=request.getContextPath() %>/AdminGetPaperPeopleServlet" target="showframe">添加论文信息</a></li>
+                      
                       </ul>
                   </li>
                              
@@ -139,7 +131,7 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="basic_table.html">Basic Table</a></li>
+                          <li><a class="" href="<%=request.getContextPath() %>/admin/Course/courseIndex.jsp" target="showframe">查看所有课程信息</a></li>
                       </ul>
                   </li>
                   
@@ -150,10 +142,9 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">                          
-                          <li><a class="" href="profile.html">Profile</a></li>
-                          <li><a class="" href="login.html"><span>Login Page</span></a></li>
-                          <li><a class="" href="blank.html">Blank Page</a></li>
-                          <li><a class="" href="404.html">404 Error</a></li>
+                      	  <li><a class="" href="<%=request.getContextPath() %>/admin/ProjectManage/addProject.jsp" target="showframe">添加项目信息</a></li>
+                          <li><a class="" href="<%=request.getContextPath() %>/ShowAllProjectServlet" target="showframe">已分配人员的项目信息</a></li>    
+                          <li><a class="" href="<%=request.getContextPath() %>/ShowNotProjectServlet" target="showframe">未分配人员的项目信息</a></li>                      
                       </ul>
                   </li>
                   
@@ -164,7 +155,8 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="basic_table.html">Basic Table</a></li>
+                        <li><a class="" href="<%=request.getContextPath()  %>/AdminApplicationServlet" target="showframe">审核</a></li>
+                          <li><a class="" href="<%=request.getContextPath()  %>/AdminApplicationHistoryServlet" target="showframe">历史记录</a></li>
                       </ul>
                   </li>
                   
@@ -173,80 +165,8 @@
           </div>
       </aside>
       <!--sidebar end-->
-      
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">            
-              <!--overview start-->
-			  <div class="row">
-				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-home"></i> 首页</h3>
-					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="<%=request.getContextPath() %>/admin/index.jsp">Home</a></li>
-						<li><i class=""></i></li>				  	
-					</ol>
-				</div>
-			</div>
-
-			<div class="row">
-		    <div class="col-lg-9 col-md-12">
-					
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h2><i class="fa fa-map-marker red"></i><strong>Countries</strong></h2>
-							<div class="panel-actions">
-								<a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-								<a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-								<a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
-							</div>	
-						</div>
-						<div class="panel-body-map">
-							<div id="map" style="height:380px;"></div>	
-						</div>
-	
-					</div>
-				</div>
-              <div class="col-md-3">
-              <!-- List starts -->
-				<ul class="today-datas">
-                <!-- List #1 -->
-				<li>
-                  <!-- Graph -->
-                  <div><span id="todayspark1" class="spark"></span></div>
-                  <!-- Text -->
-                  <div class="datas-text">11,500 visitors/day</div>
-                </li>
-                <li>
-                  <div><span id="todayspark2" class="spark"></span></div>
-                  <div class="datas-text">15,000 Pageviews</div>
-                </li>
-                <li>
-                  <div><span id="todayspark3" class="spark"></span></div>
-                  <div class="datas-text">30.55% Bounce Rate</div>
-                </li>
-                <li>
-                  <div><span id="todayspark4" class="spark"></span></div>
-                  <div class="datas-text">$16,00 Revenue/Day</div>
-                </li> 
-                <li>
-                  <div><span id="todayspark5" class="spark"></span></div>
-                  <div class="datas-text">12,000000 visitors every Month</div>
-                </li>                                                                                                              
-              </ul>
-              </div>
-              
-			 
-           </div>  
-			<br><br>
-		
-              <!-- project team & activity end -->
-
-          </section>
-      </section>
-      <!--main content end-->
-  </section>
-  <!-- container section start -->
-
+	<iframe name="showframe" src="./admin/Home.jsp" width="90%" height="100%"  style="position:absolute;top:0px;left:180px;right:0;bottom:0;border:0">
+	</iframe>
     <!-- javascripts -->
     <script src="<%=request.getContextPath() %>/bootstrap/js/jquery.js"></script>
 	<script src="<%=request.getContextPath() %>/bootstrap/js/jquery-ui-1.10.4.min.js"></script>

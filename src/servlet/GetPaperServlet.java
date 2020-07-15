@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import bean.Paper;
 import bean.School;
 import dao.IPaper;
 import dao.ISchool;
-import dao.PaperDao;
-import daoImpl.PaperDaoImpl;
+import daoImpl.PaperImpl;
 import daoImpl.SchoolImpl;
 
 /**
@@ -34,7 +34,7 @@ public class GetPaperServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class GetPaperServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		PaperDao iPaper=new PaperDaoImpl();
+		IPaper iPaper=new PaperImpl();
 		List<Paper> paper=iPaper.show();
 		System.out.println(paper);
 		request.setAttribute("paper", paper);	

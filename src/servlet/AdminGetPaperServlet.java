@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Paper;
-import dao.PaperDao;
-import daoImpl.PaperDaoImpl;
+import dao.IPaper;
+import daoImpl.PaperImpl;
 
 /**
  * Servlet implementation class AdminGetPaperServlet
@@ -39,8 +39,8 @@ public class AdminGetPaperServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		PaperDao iPaper=new PaperDaoImpl();
-		List<Paper> papers=iPaper.show();
+		IPaper iPaper=new PaperImpl();
+		List<Paper> papers=iPaper.adminshowall();
 		System.out.println(papers);
 		request.setAttribute("papers", papers);	
 		request.getRequestDispatcher("admin/paperManage/paper.jsp").forward(request, response);

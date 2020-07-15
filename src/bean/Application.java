@@ -20,6 +20,7 @@ public class Application {
 	private int status;
 	private String paper_name;
 	private String journal_name;
+	private String reason;
 	
 	public int getId() {
 		return id;
@@ -123,14 +124,22 @@ public class Application {
 	public void setJournal_name(String journal_name) {
 		this.journal_name = journal_name;
 	}
+	
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 	@Override
 	public String toString() {
 		return "Application [id=" + id + ", teacher_id=" + teacher_id + ", name=" + name + ", sex=" + sex
 				+ ", nativeplace=" + nativeplace + ", birthday=" + birthday + ", education=" + education + ", title="
 				+ title + ", quatime=" + quatime + ", graschool=" + graschool + ", gratime=" + gratime + ", major="
 				+ major + ", workingtime=" + workingtime + ", currentmajor=" + currentmajor + ", status=" + status
-				+ ", paper_name=" + paper_name + ", journal_name=" + journal_name + "]";
+				+ ", paper_name=" + paper_name + ", journal_name=" + journal_name + ", reason=" + reason + "]";
 	}
+	
 	
 
 }
