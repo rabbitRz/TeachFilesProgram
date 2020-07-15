@@ -238,10 +238,58 @@ public class CourseDaoImpl implements CourseDao {
 			
 			return flag;
 		}
+		//录入数据
+		public boolean InsertCourseById(String name, String course_class, String hours,String people_num, String place, String teacher_id, String startweek, String endweek, String xinqi,String term_start) {
+			Connection conn=DBUtils.getConnection();
+			String sql="insert into course(course_class,course_hours,course_name,course_peoplenum,"
+					+ "course_place,start_courseweek,end_courseweek,`week`,teacher_id,term_start,course_week"
+					+ ") values('"+course_class+"',"+hours+",'"+name+"',"
+					+ ""+people_num+",'"+place+"','"+startweek+"'\r\n" + 
+					",'"+endweek+"','"+xinqi+"',"+teacher_id+",'"+
+					term_start+"','"+startweek
+					+"-"+endweek+"')";
+			System.out.println(sql);
+			PreparedStatement st=null;
+			boolean flag=false;
+			List<String> list=new ArrayList<String>();
+			try {
+				st=conn.prepareStatement(sql);
+				int t=st.executeUpdate();
+				if(t==1) {
+					flag=true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(null, st, conn);
+			}
+			
+			return flag;
+		}
 		//根据课程id删除课程信息
 		public boolean deleteCourse(String id) {
 			// TODO Auto-generated method stub
-			return false;
+			Connection conn=DBUtils.getConnection();
+			String sql="delete from course where course_id="+id;
+			System.out.println(sql);
+			PreparedStatement st=null;
+			boolean flag=false;
+			List<String> list=new ArrayList<String>();
+			try {
+				st=conn.prepareStatement(sql);
+				int t=st.executeUpdate();
+				if(t==1) {
+					flag=true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				DBUtils.close(null, st, conn);
+			}
+			
+			return flag;
 		}
 		//查看hoilday表的全部信息
 		public List<String> getAllTerm() {

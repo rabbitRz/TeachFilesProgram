@@ -608,4 +608,24 @@
     <servlet-name>CreateUserServlet</servlet-name>
     <url-pattern>/CreateUserServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminDelteCourseServlet</display-name>
+    <servlet-name>AdminDelteCourseServlet</servlet-name>
+    <servlet-class>daoImpl.AdminDelteCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminDelteCourseServlet</servlet-name>
+    <url-pattern>/AdminDelteCourseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminInsertCourseInfoServlet</display-name>
+    <servlet-name>AdminInsertCourseInfoServlet</servlet-name>
+    <servlet-class>servlet.AdminInsertCourseInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminInsertCourseInfoServlet</servlet-name>
+    <url-pattern>/AdminInsertCourseInfoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

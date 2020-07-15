@@ -21,6 +21,8 @@ public interface CourseDao {
 	public course getCourseById(String course_id);
 	//根据课程id进行修改信息
 	public boolean UpdateCourseById(String course_id,String name,String course_class,String hours,String people_num,String place,String teacher_id,String startweek,String endweek,String xinqi,String term_start);
+	//录入数据
+	public boolean InsertCourseById(String name,String course_class,String hours,String people_num,String place,String teacher_id,String startweek,String endweek,String xinqi,String term_start);
 	//根据课程id删除课程信息
 	public boolean deleteCourse(String id);
 	//查看hoilday表的全部信息
@@ -29,4 +31,5 @@ public interface CourseDao {
 	public UpdateInfo GetTrDay(String teacher_id,String week,String hours,String start,String end,String term);
 	//查看当前教室是否被占用
 	public UpdateInfo getDayClass(String place,String week,String hours,String start,String end,String term);
+	
 }

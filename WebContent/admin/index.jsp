@@ -132,6 +132,7 @@
                       </a>
                       <ul class="sub">
                           <li><a class="" href="<%=request.getContextPath() %>/admin/Course/courseIndex.jsp" target="showframe">查看所有课程信息</a></li>
+                          <li><a class="" href="<%=request.getContextPath() %>/admin/Course/InsertCourse.jsp" target="showframe">录入课程信息</a></li>
                       </ul>
                   </li>
                   

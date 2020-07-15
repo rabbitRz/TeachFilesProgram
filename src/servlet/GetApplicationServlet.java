@@ -35,6 +35,7 @@ public class GetApplicationServlet extends HttpServlet {
 		//System.out.println(applications);
 	
 		request.setAttribute("applications",applications);		
+		request.setAttribute("teacher_id",teacher_id);	
 		request.getRequestDispatcher("application/application.jsp").forward(request, response);
 	}
 

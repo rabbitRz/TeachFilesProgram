@@ -363,7 +363,7 @@ $(function(){
 			     '<th scope="row" >'+data[i].course_class+'</th>'+
 			     '<td>'+data[i].course_name+'</td>'+
 			     '<td><button type="button" class="btn btn-link">'+
-			     '<a href="<%=request.getContextPath()%>/teacher/Course/CourseIndex.jsp">课程表</a></button></td>'+
+			     '<a href="<%=request.getContextPath()%>/teacher/Course/CourseIndex.jsp?user_id=<%=request.getParameter("user_id")%>">课程表</a></button></td>'+
 			     '</tr>';
 		}
 		$("#classInfo").append(str);
